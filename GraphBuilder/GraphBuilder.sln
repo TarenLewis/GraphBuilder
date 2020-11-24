@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphBuilder", "GraphBuilder\GraphBuilder.csproj", "{5A2DB62C-54C3-4ACE-936F-B815DFE9F88B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphBuilder", "GraphBuilder\GraphBuilder.csproj", "{E38CBB56-43C8-429F-9792-4C0EA4814C5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5A2DB62C-54C3-4ACE-936F-B815DFE9F88B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A2DB62C-54C3-4ACE-936F-B815DFE9F88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A2DB62C-54C3-4ACE-936F-B815DFE9F88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A2DB62C-54C3-4ACE-936F-B815DFE9F88B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E38CBB56-43C8-429F-9792-4C0EA4814C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E38CBB56-43C8-429F-9792-4C0EA4814C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E38CBB56-43C8-429F-9792-4C0EA4814C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E38CBB56-43C8-429F-9792-4C0EA4814C5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9D53AB4B-4B27-4A5A-B8C3-F5EA3AE9F267}
+		SolutionGuid = {0DE53349-D093-4B96-BBD9-B7C8ECD6CE77}
 	EndGlobalSection
 EndGlobal
