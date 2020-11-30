@@ -36,15 +36,15 @@ namespace GraphBuilder.Graphing
 
         public void draw(Panel p)
         {
-            int x1 = (int)(p.Width * 0.10);
-            int y1 = (int)(p.Height - 0.10 * p.Height);
-            int x2 = x1;
-            int y2 = (int)(p.Height * 0.10);
+            double x1 = p.Width * 0.10;
+            double y1 = p.Height - 0.10 * p.Height;
+            double x2 = x1;
+            double y2 = p.Height * 0.10;
 
             Pen pen = new Pen(Color.Black, 2);
 
             Graphics g = p.CreateGraphics();
-            g.DrawLine(pen, x1, y1, x2, y2);
+            g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
 
             foreach (VAxisIF vaif in components)
                 vaif.draw(p);
@@ -72,15 +72,15 @@ namespace GraphBuilder.Graphing
 
         public void draw(Panel p)
         {
-            int x1 = (int)(p.Width * 0.10);
-            int y1 = (int)(p.Height - 0.10 * p.Height);
-            int x2 = (int)(p.Width - p.Width * 0.10);
-            int y2 = y1;
+            double x1 = p.Width * 0.10;
+            double y1 = p.Height - 0.10 * p.Height;
+            double x2 = p.Width - p.Width * 0.10;
+            double y2 = y1;
 
             Pen pen = new Pen(Color.Black, 2);
 
             Graphics g = p.CreateGraphics();
-            g.DrawLine(pen, x1, y1, x2, y2);
+            g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
 
             foreach (HAxisIF haif in components)
                 haif.draw(p);
@@ -94,20 +94,20 @@ namespace GraphBuilder.Graphing
 
         public void draw(Panel p)
         {
-            int x1 = (int)(p.Width * 0.10);
-            int x2 = (int)(p.Width - p.Width * 0.10);
+            double x1 = p.Width * 0.10;
+            double x2 = p.Width - p.Width * 0.10;
 
-            int y1 = (int)(p.Height * 0.10);
-            int y2 = (int)(p.Height - p.Height * 0.10);
-            int dy = (int)((y2 - y1) / VAxis.incr);
+            double y1 = p.Height * 0.10;
+            double y2 = p.Height - p.Height * 0.10;
+            double dy = (y2 - y1) / VAxis.incr;
 
             Pen pen = new Pen(c, thickness);
             Graphics g = p.CreateGraphics();
 
             for (int i = 1; i < VAxis.incr + 1; i++)
             {
-                int newy = y2 - dy * i;
-                g.DrawLine(pen, x1, newy, x2, newy);
+                double newy = y2 - dy * i;
+                g.DrawLine(pen, (float) x1, (float) newy, (float) x2, (float) newy);
             }
         }
     }
@@ -119,20 +119,20 @@ namespace GraphBuilder.Graphing
 
         public void draw(Panel p)
         {
-            int x1 = (int)(p.Width * 0.10);
-            int x2 = (int)(p.Width - p.Width * 0.10);
-            int dx = (int)((x2 - x1) / HAxis.incr);
+            double x1 = p.Width * 0.10;
+            double x2 = p.Width - p.Width * 0.10;
+            double dx = (x2 - x1) / HAxis.incr;
 
-            int y1 = (int)(p.Height - p.Height * 0.10);
-            int y2 = (int)(p.Height * 0.10);
+            double y1 = p.Height - p.Height * 0.10;
+            double y2 = p.Height * 0.10;
 
             Pen pen = new Pen(c, thickness);
             Graphics g = p.CreateGraphics();
 
             for (int i = 1; i < HAxis.incr + 1; i++)
             {
-                int newx = x1 + dx * i;
-                g.DrawLine(pen, newx, y1, newx, y2);
+                double newx = x1 + dx * i;
+                g.DrawLine(pen, (float) newx, (float) y1, (float) newx, (float) y2);
             }
         }
     }
@@ -151,27 +151,27 @@ namespace GraphBuilder.Graphing
             this.y_min = Data.y_min;
 
 
-            int x1 = (int)(p.Width * 0.09);
-            int x2 = (int)(p.Width - p.Width * 0.10);
+            double x1 = p.Width * 0.09;
+            double x2 = p.Width * 0.10;
 
-            int y1 = (int)(p.Height * 0.10);
-            int y2 = (int)(p.Height - p.Height * 0.10);
-            int dy = (int)((y2 - y1) / VAxis.incr);
+            double y1 = p.Height * 0.10;
+            double y2 = p.Height - p.Height * 0.10;
+            double dy = (y2 - y1) / VAxis.incr;
 
             Pen pen = new Pen(c, thickness);
             Graphics g = p.CreateGraphics();
 
-            int y_incr = (y_max - y_min) / VAxis.incr;
+            double y_incr = (y_max - y_min) / VAxis.incr;
             string str;
             Font f = new Font("Times New Roman", 9);
 
             for (int i = 1; i < VAxis.incr + 1; i++)
             {
-                int newy = y2 - dy * i;
-                g.DrawLine(pen, x1, newy, x2, newy);
+                double newy = y2 - dy * i;
+                g.DrawLine(pen, (float) x1, (float) newy, (float) x2, (float) newy);
 
                 str = (y_min + y_incr * i).ToString();
-                g.DrawString(str, f, Brushes.Black, x1 - 25, newy - 10);
+                g.DrawString(str, f, Brushes.Black, (float) x1 - 25, (float) newy - 10);
 
             }
         }
@@ -191,17 +191,17 @@ namespace GraphBuilder.Graphing
             this.x_min = Data.x_min;
 
 
-            int x1 = (int)(p.Width * 0.10);
-            int x2 = (int)(p.Width - p.Width * 0.10);
-            int dx = (int)((x2 - x1) / HAxis.incr);
+            double x1 = p.Width * 0.10;
+            double x2 = p.Width - p.Width * 0.10;
+            double dx = (x2 - x1) / HAxis.incr;
 
-            int y1 = (int)(p.Height - p.Height * 0.09);
-            int y2 = (int)(p.Height * 0.10);
+            double y1 = p.Height - p.Height * 0.09;
+            double y2 = p.Height - p.Height * 0.10;
 
             Pen pen = new Pen(c, thickness);
             Graphics g = p.CreateGraphics();
 
-            int x_incr = (x_max - x_min) / HAxis.incr;
+            double x_incr = (x_max - x_min) / HAxis.incr;
             string str;
             Font f = new Font("Times New Roman", 9);
 
@@ -209,12 +209,12 @@ namespace GraphBuilder.Graphing
             {
                 g = p.CreateGraphics();
 
-                int newx = x1 + dx * i;
-                g.DrawLine(pen, newx, y1, newx, y2);
+                double newx = x1 + dx * i;
+                g.DrawLine(pen, (float) newx, (float) y1, (float) newx, (float) y2);
 
                 str = (x_min + x_incr * i).ToString();
 
-                g.TranslateTransform(newx + 5, y1);
+                g.TranslateTransform((float) newx + 5, (float) y1);
                 g.RotateTransform(45F);
                 g.DrawString(str, f, Brushes.Black, 0, 0);
             }

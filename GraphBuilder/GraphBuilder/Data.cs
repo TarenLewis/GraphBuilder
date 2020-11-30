@@ -47,10 +47,10 @@ namespace GraphBuilder.Graphing
 
     public class Point : DataIF
     {
-        private int radius, x, y;
+        private double radius, x, y;
         private Color c = Color.Blue;
 
-        public Point(int x, int y, int radius)
+        public Point(double x, double y, double radius)
         {
             this.x = x;
             this.y = y;
@@ -58,22 +58,32 @@ namespace GraphBuilder.Graphing
 
         }
 
+        public double getX()
+        {
+            return this.x;
+        }
+
+        public double getY()
+        {
+            return this.y;
+        }
+
         public void draw(Panel p)
         {
-            int location_x_min = (int) (p.Width * 0.1);
-            int location_x_max = (int) (p.Width - p.Width * 0.1);
-            int location_y_min = (int) (p.Height - p.Height * 0.1);
-            int location_y_max = (int) (p.Height * 0.1);
+            double location_x_min = p.Width * 0.1;
+            double location_x_max = p.Width - p.Width * 0.1;
+            double location_y_min = p.Height - p.Height * 0.1;
+            double location_y_max = p.Height * 0.1;
 
 
-            int location_x = (x / (Data.x_max - Data.x_min)) * (location_x_max - location_x_min);
-            int location_y = (y / (Data.y_max - Data.y_min)) * (location_y_max - location_y_min);
+            double location_x = (x / (Data.x_max - Data.x_min)) * (location_x_max - location_x_min) + location_x_min;
+            double location_y = (y / (Data.y_max - Data.y_min)) * (location_y_max - location_y_min) + location_y_min;
 
             Graphics g = p.CreateGraphics();
             Pen pen = new Pen(c);
             Brush brush = new SolidBrush(c);
-            g.DrawEllipse(pen, location_x, location_y, radius, radius);
-            g.FillEllipse(brush, location_x, location_y, radius, radius);
+            g.DrawEllipse(pen, (float) (location_x - radius), (float) (location_y -  radius), (float) (2*radius), (float) (2*radius));
+            g.FillEllipse(brush, (float) (location_x - radius), (float) (location_y - radius), (float) (2*radius), (float) (2*radius));
 
         }
     }
@@ -81,11 +91,40 @@ namespace GraphBuilder.Graphing
 
     public class Line : DataIF
     {
+        List<Point> points = new List<Point>();
+        Color c = Color.Red;
 
+        public void addPoint(Point p)
+        {
+            points.Add(p);
+        }
 
         public void draw(Panel p)
         {
+            double location_x_min = p.Width * 0.1;
+            double location_x_max = p.Width - p.Width * 0.1;
+            double location_y_min = p.Height - p.Height * 0.1;
+            double location_y_max = p.Height * 0.1;
 
+
+            double x1, y1, x2, y2;
+            Graphics g = p.CreateGraphics();
+            Pen pen = new Pen(c, 0.75F);
+
+            x1 = (points[0].getX() / (Data.x_max - Data.x_min)) * (location_x_max - location_x_min) + location_x_min;
+            y1 = (points[0].getY() / (Data.y_max - Data.y_min)) * (location_y_max - location_y_min) + location_y_min;
+
+            for (int i = 1; i < points.Count; i++)
+            {
+                x2 = (points[i].getX() / (Data.x_max - Data.x_min)) * (location_x_max - location_x_min) + location_x_min;
+                y2 = (points[i].getY() / (Data.y_max - Data.y_min)) * (location_y_max - location_y_min) + location_y_min;
+
+                g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
+
+                x1 = x2;
+                y1 = y2;
+            }
+            
         }
     }
     
