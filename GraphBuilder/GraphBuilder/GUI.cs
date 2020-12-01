@@ -6,6 +6,7 @@ namespace GraphBuilder
 {
     public partial class GUI : Form
     {
+        GraphManager graphManager = new GraphManager();
         Graph graph = new Graph();
 
         HAxis haxis = new HAxis();

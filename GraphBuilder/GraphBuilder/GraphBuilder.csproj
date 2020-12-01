@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Axis.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="GraphManager.cs" />
     <Compile Include="GUI.cs">
       <SubType>Form</SubType>
     </Compile>

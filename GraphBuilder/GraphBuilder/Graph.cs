@@ -22,7 +22,7 @@ namespace GraphBuilder.Graphing
         void draw(Panel p);
     }
 
-    public class Graph : GraphComponentIF, GraphIF
+    public class Graph : GraphComponentIF, GraphIF, Cloneable
     {
         private Rectangle frame;
         private List<GraphComponentIF> components = new List<GraphComponentIF>(); 
@@ -35,7 +35,7 @@ namespace GraphBuilder.Graphing
                 c.draw(p);
         }
 
-        // Add component to subcompoents 
+        // Add component to subcomponents 
         public void addComponent(GraphComponentIF c)
         {
             components.Add(c);
@@ -47,6 +47,10 @@ namespace GraphBuilder.Graphing
             components.Remove(c);
         }
 
+        public void clone()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 
