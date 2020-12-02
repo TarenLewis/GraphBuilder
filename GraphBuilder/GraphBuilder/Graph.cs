@@ -1,7 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using GraphBuilder.Manager;
 
 namespace GraphBuilder.Graphing
 {
@@ -16,24 +16,18 @@ namespace GraphBuilder.Graphing
 
     }
 
-
+    // GraphComponentIF to handle composite graph object
     public interface GraphComponentIF
     {
         void draw(Panel p);
     }
 
+    // Parent composite object
     public class Graph : GraphComponentIF, GraphIF
     {
-        private Rectangle frame;
-        private List<GraphComponentIF> components = new List<GraphComponentIF>(); 
-
-
-        // Draw all subcompoents onto graphic 
-        public void draw(Panel p)
-        {
-            foreach (GraphComponentIF c in components)
-                c.draw(p);
-        }
+        private List<GraphComponentIF> components = new List<GraphComponentIF>();
+        private string title = "Y vs X";
+        public bool title_on = true;
 
         // Add component to subcompoents 
         public void addComponent(GraphComponentIF c)
@@ -47,6 +41,26 @@ namespace GraphBuilder.Graphing
             components.Remove(c);
         }
 
+        public void setTitle(string title)
+        {
+            this.title = title;
+        }
+
+        // Draw all subcompoents onto graphic 
+        public void draw(Panel p)
+        {
+
+            if (title_on)
+            {
+                Graphics g = p.CreateGraphics();
+                Font f = new Font("Times new roman", 16);
+
+                g.DrawString(title, f, Brushes.Black, p.Width / 2, 5);
+            }
+
+            foreach (GraphComponentIF c in components)
+                c.draw(p);
+        }
     }
 
 
