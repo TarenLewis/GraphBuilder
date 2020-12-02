@@ -22,6 +22,7 @@ namespace GraphBuilder.Graphing
         void draw(Panel p);
     }
 
+
     // Parent composite object
     public class Graph : GraphComponentIF, GraphIF
     {
@@ -29,7 +30,7 @@ namespace GraphBuilder.Graphing
         private string title = "Y vs X";
         public bool title_on = true;
 
-        // Add component to subcompoents 
+        // Add component to subcomponents 
         public void addComponent(GraphComponentIF c)
         {
             components.Add(c);
@@ -40,6 +41,7 @@ namespace GraphBuilder.Graphing
         {
             components.Remove(c);
         }
+
 
         public void setTitle(string title)
         {
@@ -60,6 +62,7 @@ namespace GraphBuilder.Graphing
 
             foreach (GraphComponentIF c in components)
                 c.draw(p);
+
         }
     }
 

@@ -8,6 +8,7 @@ namespace GraphBuilder
 {
     public partial class GUI : Form
     {
+
         
 
         GraphManager graphmanager = new GraphManager();
