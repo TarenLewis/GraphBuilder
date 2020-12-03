@@ -42,8 +42,12 @@ namespace GraphBuilder
 
                 if (od.ShowDialog() == DialogResult.OK)
                 {
+                    clearGraph();
                     string path = od.FileName;
+                    graphmanager.graph = new Graph();
                     graphmanager.graph = graphmanager.openGraphObject<Graph>(path);
+                    
+                    graphmanager.graph.draw(display);
                 }
 
 
@@ -79,6 +83,7 @@ namespace GraphBuilder
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             // Save As
             Stream myStream;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -100,7 +105,9 @@ namespace GraphBuilder
 
                 // Set this graph's file name.
                 graphmanager.graph.setFileName(saveFileDialog.FileName);
+                graphmanager.saveGraphObject(graphmanager.graph, path);
 
+                /*
                 if ((myStream = saveFileDialog.OpenFile()) != null)
                 {
                     if(graphmanager.graph != null)
@@ -109,17 +116,24 @@ namespace GraphBuilder
                     }
                     myStream.Close();
                 }
+                */
             }
 
 
         }
 
-        // Clear Graph
-        private void clearGraphButton_click(object sender, EventArgs e)
+            // Clear Graph
+            private void clearGraphButton_click(object sender, EventArgs e)
+        {
+            clearGraph();
+        }
+
+        private void clearGraph()
         {
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
         }
+
 
         // On Graph type 'selected index change'
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -127,21 +141,9 @@ namespace GraphBuilder
             ComboBox comboBox = sender as ComboBox;
             foreach (Graph graph in graphmanager.graphList)
             {
-                foreach(GraphComponentIF graphComponentIF in graph.getComponentList())
-                {
-                    // If graphComponentIF.type != selected combobox, remove it. Then add a graphComponentIF of type "selected combobox"
-
-                    if (comboBox.SelectedItem.ToString() != graphComponentIF.getComponentType())
-                    {
-                        // remove the component
-                        graph.removeComponent(graphComponentIF);
-                    }
-
-                    // GraphComponentIF gcif = new graphComponent("typeHere");
-                    // Add correct component type
-                    // graph.addComponent(gcif)
+                
                     
-                }
+                
             }
         }
 

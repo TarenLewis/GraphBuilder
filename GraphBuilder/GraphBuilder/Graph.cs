@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using GraphBuilder.Manager;
@@ -17,10 +18,9 @@ namespace GraphBuilder.Graphing
     }
 
     // GraphComponentIF to handle composite graph object
-    public interface GraphComponentIF
+    public interface GraphComponentIF : ICloneable
     {
         void draw(Panel p);
-        string getComponentType();
     }
 
 
@@ -85,6 +85,11 @@ namespace GraphBuilder.Graphing
         public string getComponentType()
         {
             return componentType;
+        }
+
+        public object Clone()
+        {
+            return this.Clone();
         }
     }
 

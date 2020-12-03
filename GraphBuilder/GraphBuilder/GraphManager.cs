@@ -102,7 +102,10 @@ namespace GraphBuilder.Manager
 
         public void saveGraphObject<Graph>(Graph serializableObject, string fileName)
         {
-            if (serializableObject == null) { return; }
+            Console.WriteLine("Inside saveGraphObject");
+            if (serializableObject == null) {
+                Console.WriteLine("Object is null inside saveGraphObject function");
+                return; }
 
             try
             {
@@ -118,7 +121,7 @@ namespace GraphBuilder.Manager
             }
             catch (Exception ex)
             {
-                Console.WriteLine("\nThere was an isue with writing the object.\n{0}", ex.Message);
+                Console.WriteLine("\nThere was an isue with WRITING the object.\n{0}", ex.Message);
             }
         }
 
@@ -147,7 +150,7 @@ namespace GraphBuilder.Manager
             }
             catch (Exception ex)
             {
-                //Log exception here
+                Console.WriteLine("\nThere was an isue with READING the object.\n{0}", ex.Message);
             }
 
             return objectOut;

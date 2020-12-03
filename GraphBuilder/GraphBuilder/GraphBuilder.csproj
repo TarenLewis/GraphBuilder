@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Axis.cs" />
+    <Compile Include="ComponentBuilder.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="GraphManager.cs" />
     <Compile Include="GraphRender.cs" />
