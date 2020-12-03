@@ -33,14 +33,14 @@ namespace GraphBuilder.Manager
 
 
 
-        private HAxis haxis = new HAxis();
-        private HAxisGridLines hgridlines = new HAxisGridLines();
-        private HAxisTickMarks htickmarks = new HAxisTickMarks();
+        private XAxis haxis = new XAxis();
+        private XAxisGridLines hgridlines = new XAxisGridLines();
+        private XAxisTickMarks htickmarks = new XAxisTickMarks();
 
 
-        private VAxis vaxis = new VAxis();
-        private VAxisGridLines vgridlines = new VAxisGridLines();
-        private VAxisTickMarks vtickmarks = new VAxisTickMarks();
+        private YAxis vaxis = new YAxis();
+        private YAxisGridLines vgridlines = new YAxisGridLines();
+        private YAxisTickMarks vtickmarks = new YAxisTickMarks();
 
         private Data data = new Data();
         private Line line = new Line();

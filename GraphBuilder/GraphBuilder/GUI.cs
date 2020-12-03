@@ -111,24 +111,13 @@ namespace GraphBuilder
                 // Set this graph's file name.
                 graphmanager.graph.setFileName(saveFileDialog.FileName);
                 graphmanager.saveGraphObject(graphmanager.graph, path);
-
-                /*
-                if ((myStream = saveFileDialog.OpenFile()) != null)
-                {
-                    if(graphmanager.graph != null)
-                    {
-                        graphmanager.saveGraphObject(graphmanager.graph, path);
-                    }
-                    myStream.Close();
-                }
-                */
             }
 
 
         }
 
             // Clear Graph
-            private void clearGraphButton_click(object sender, EventArgs e)
+        private void clearGraphButton_click(object sender, EventArgs e)
         {
             clearGraph();
         }

@@ -25,13 +25,12 @@ namespace GraphBuilder.Graphing
 
 
     // Parent composite object
-    public class Graph : GraphComponentIF, GraphIF
+    public class Graph : GraphComponentIF, GraphIF, ICloneable
     {
         private List<GraphComponentIF> components = new List<GraphComponentIF>();
         private string title = "Y vs X";
         public bool title_on = true;
         public string fileName;
-        private string componentType = "Graph";
 
         // Add component to subcomponents 
         public void addComponent(GraphComponentIF c)
@@ -82,14 +81,27 @@ namespace GraphBuilder.Graphing
 
         }
 
-        public string getComponentType()
-        {
-            return componentType;
-        }
-
         public object Clone()
         {
-            throw new NotImplementedException();
+            // Copy for value types
+            Graph tempGraph = (Graph)this.MemberwiseClone();
+
+            // Copy String Reference types
+            tempGraph.title = String.Copy(this.title);
+            tempGraph.fileName = String.Copy(this.fileName);
+
+            // Copy component references
+            List<GraphComponentIF> tempComponentList = new List<GraphComponentIF>();
+
+            foreach(GraphComponentIF gcif in this.components)
+            {
+                tempComponentList.Add((GraphComponentIF)gcif.Clone());
+            }
+
+            // Set equal to new reference
+            tempGraph.components = tempComponentList;
+
+            return tempGraph;
         }
     }
 
