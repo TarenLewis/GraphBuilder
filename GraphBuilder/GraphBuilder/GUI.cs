@@ -16,15 +16,19 @@ namespace GraphBuilder
         public GUI()
         {
             InitializeComponent();
+            graphTypeComboBox.SelectedIndex = 0;
+            xaxisComboBox.SelectedIndex = 0;
+            yaxisComboBox.SelectedIndex = 0;
+            tickMarkComboBox.SelectedIndex = 0;
+            gridLinesComboBox.SelectedIndex = 0;
         }
 
         // OK button 
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach(Graph g in graphmanager.graphList)
-            {
-                graphmanager.graph.draw(display);
-            }
+            Graphics g = display.CreateGraphics();
+            g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
+            graphmanager.graph.draw(display);
         }
 
 
@@ -123,51 +127,49 @@ namespace GraphBuilder
         }
 
         // On Graph type 'selected index change'
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void graphTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox comboBox = sender as ComboBox;
-            foreach (Graph graph in graphmanager.graphList)
-            {
-                foreach(GraphComponentIF graphComponentIF in graph.getComponentList())
-                {
-                    // If graphComponentIF.type != selected combobox, remove it. Then add a graphComponentIF of type "selected combobox"
-
-                    if (comboBox.SelectedItem.ToString() != graphComponentIF.getComponentType())
-                    {
-                        // remove the component
-                        graph.removeComponent(graphComponentIF);
-                    }
-
-                    // GraphComponentIF gcif = new graphComponent("typeHere");
-                    // Add correct component type
-                    // graph.addComponent(gcif)
-                    
-                }
-            }
+            if (graphTypeComboBox.SelectedIndex == 0)
+                graphmanager.addLine();
+            else
+                graphmanager.removeLine();
         }
 
         // X-axis 'selected index change'
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void xaxisComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (xaxisComboBox.SelectedIndex == 0)
+                graphmanager.addXAxis();
+            else
+                graphmanager.removeXAxis();
         }
 
         // Y-axis 'selected index change'
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        private void yaxisComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (yaxisComboBox.SelectedIndex == 0)
+                graphmanager.addYAxis();
+            else
+                graphmanager.removeYAxis();
         }
 
         // Ticks 'selected index change'
-        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        private void tickMarksComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (tickMarkComboBox.SelectedIndex == 0)
+                graphmanager.addTickMarks();
+            else
+                graphmanager.removeTickMarks();
 
         }
 
         // Grid Lines 'selected index change'
-        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        private void gridLinesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (gridLinesComboBox.SelectedIndex == 0)
+                graphmanager.addGridLines();
+            else
+                graphmanager.removeGridLines();
         }
 
 

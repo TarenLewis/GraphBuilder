@@ -118,6 +118,9 @@ namespace GraphBuilder.Graphing
         //Connect a line between all points
         public void draw(Panel p)
         {
+            if (points.Count == 0)
+                return;
+
             // locations on the GUI
             double location_x_min = p.Width * GraphManager.W_PADDING;
             double location_x_max = p.Width * GraphManager.E_PADDING;

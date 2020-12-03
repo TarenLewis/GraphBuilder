@@ -20,7 +20,6 @@ namespace GraphBuilder.Graphing
     public interface GraphComponentIF
     {
         void draw(Panel p);
-        string getComponentType();
     }
 
 
@@ -82,10 +81,6 @@ namespace GraphBuilder.Graphing
 
         }
 
-        public string getComponentType()
-        {
-            return componentType;
-        }
     }
 
 

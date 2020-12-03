@@ -28,8 +28,6 @@ namespace GraphBuilder.Manager
         public static double S_PADDING = 0.85;
         public static double W_PADDING = 0.15;
 
-        // Graph variables
-        public List<Graph> graphList = new List<Graph>();
 
         public Graph graph = new Graph();
 
@@ -45,22 +43,69 @@ namespace GraphBuilder.Manager
         private VAxisTickMarks vtickmarks = new VAxisTickMarks();
 
         private Data data = new Data();
+        private Line line = new Line();
 
         public GraphManager()
+        {      
+
+        }
+
+        public void addLine()
+        {
+            data.addComponent(line);
+            graph.addComponent(data);
+        }
+
+        public void removeLine()
+        {
+            data.removeComponent(line);
+            graph.addComponent(data);
+        }
+
+        public void removeXAxis()
+        {
+            graph.removeComponent(haxis);
+        }
+
+        public void addXAxis()
+        {
+            graph.addComponent(haxis);
+        }
+
+        public void addYAxis()
+        {
+            graph.addComponent(vaxis);
+        }
+
+        public void removeYAxis()
+        {
+            graph.removeComponent(vaxis);
+        }
+
+        public void removeGridLines()
+        {
+            vaxis.removeComponent(vgridlines);
+            haxis.removeComponent(hgridlines);
+        }
+
+        public void addGridLines()
         {
             vaxis.addComponent(vgridlines);
-            vaxis.addComponent(vtickmarks);
-
             haxis.addComponent(hgridlines);
-            haxis.addComponent(htickmarks);
-
-            graph.addComponent(haxis);
-            graph.addComponent(vaxis);
-
-            graph.addComponent(data);
-
-            graphList.Add(graph);
         }
+
+        public void addTickMarks()
+        {
+            vaxis.addComponent(vtickmarks);
+            haxis.addComponent(htickmarks);
+        }
+
+        public void removeTickMarks()
+        {
+            vaxis.removeComponent(vtickmarks);
+            haxis.removeComponent(htickmarks);
+        }
+        
 
         public void openData(string path)
         {
@@ -93,6 +138,7 @@ namespace GraphBuilder.Manager
 
                     p = new Point(x, y, 1.5);
                     data.addComponent(p);
+                    line.addPoint(p);
 
                     GraphManager.Y_MAX = y_max;
                     GraphManager.X_MAX = x_max;
