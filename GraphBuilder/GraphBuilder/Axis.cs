@@ -25,6 +25,7 @@ namespace GraphBuilder.Graphing
         private List<VAxisIF> components = new List<VAxisIF>();
         private string title = "Y - Axis";
         public bool title_on = true;
+        private string componentType = "VAxis";
 
         // Controls incrementing for axes 
         public static int incr = 25;
@@ -80,7 +81,10 @@ namespace GraphBuilder.Graphing
             }
         }
 
-
+        public string getComponentType()
+        {
+            return componentType;
+        }
     }
 
     // Controls line and title for X - Axis 
@@ -89,6 +93,7 @@ namespace GraphBuilder.Graphing
         private List<HAxisIF> components = new List<HAxisIF>();
         private string title = "X - Axis";
         public bool title_on = true;
+        private string componentType = "HAxis";
 
         // Controls incrementing for axes 
         public static int incr = 25;
@@ -137,6 +142,11 @@ namespace GraphBuilder.Graphing
             foreach (HAxisIF haif in components)
                 haif.draw(p);
         }
+
+        public string getComponentType()
+        {
+            return componentType;
+        }
     }
 
     // Class to control horizontal gridlines for the Y-axis
@@ -144,6 +154,7 @@ namespace GraphBuilder.Graphing
     {
         private float thickness = 0.75F;
         private Color c = Color.Gray;
+
 
         public void draw(Panel p)
         {
@@ -165,6 +176,11 @@ namespace GraphBuilder.Graphing
                 g.DrawLine(pen, (float) x1, (float) newy, (float) x2, (float) newy);
             }
         }
+
+        public string getComponentType()
+        {
+            return "VAxisGridLines";
+        }
     }
 
     // Class to control vertical gridlines for the X-axis
@@ -172,6 +188,7 @@ namespace GraphBuilder.Graphing
     {
         private float thickness = 0.75F;
         private Color c = Color.Gray;
+        private string componentType = "HAxisGridLines";
 
         public void draw(Panel p)
         {
@@ -193,6 +210,11 @@ namespace GraphBuilder.Graphing
                 g.DrawLine(pen, (float) newx, (float) y1, (float) newx, (float) y2);
             }
         }
+
+        public string getComponentType()
+        {
+            return componentType;
+        }
     }
 
 
@@ -201,6 +223,7 @@ namespace GraphBuilder.Graphing
     {
         private Color c = Color.Black;
         private float thickness = 1;
+        private string componentType = "VAxisTickMarks";
 
         public void draw(Panel p)
         {
@@ -233,6 +256,10 @@ namespace GraphBuilder.Graphing
             }
         }
 
+        public string getComponentType()
+        {
+            return componentType;
+        }
     }
 
     // Controls major tick marks for the X-axis
@@ -240,6 +267,7 @@ namespace GraphBuilder.Graphing
     {
         private Color c = Color.Black;
         private float thickness = 1;
+        private string componentType = "HAxisTickMarks";
 
         public void draw(Panel p)
         {
@@ -280,7 +308,10 @@ namespace GraphBuilder.Graphing
             
         }
 
-
+        public string getComponentType()
+        {
+            return componentType;
+        }
     }
     
 }
