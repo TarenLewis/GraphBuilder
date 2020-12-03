@@ -38,6 +38,11 @@ namespace GraphBuilder.Graphing
         {
             components.Remove(dif);
         }
+
+        public object Clone()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     // Class to represent a point on the graph
@@ -94,6 +99,11 @@ namespace GraphBuilder.Graphing
             g.FillEllipse(brush, (float) (location_x - radius), (float) (location_y - radius), (float) (2*radius), (float) (2*radius));
 
         }
+
+        public object Clone()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     // Class to add lines to the graph 
@@ -118,6 +128,9 @@ namespace GraphBuilder.Graphing
         //Connect a line between all points
         public void draw(Panel p)
         {
+            if (points.Count == 0)
+                return;
+
             // locations on the GUI
             double location_x_min = p.Width * GraphManager.W_PADDING;
             double location_x_max = p.Width * GraphManager.E_PADDING;
@@ -144,6 +157,11 @@ namespace GraphBuilder.Graphing
                 y1 = y2;
             }
             
+        }
+
+        public object Clone()
+        {
+            throw new System.NotImplementedException();
         }
     }
     

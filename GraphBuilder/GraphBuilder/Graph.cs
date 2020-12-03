@@ -89,7 +89,7 @@ namespace GraphBuilder.Graphing
 
         public object Clone()
         {
-            return this.Clone();
+            throw new NotImplementedException();
         }
     }
 
