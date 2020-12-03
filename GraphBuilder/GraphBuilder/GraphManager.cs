@@ -7,15 +7,17 @@ namespace GraphBuilder.Manager
 {
     public class GraphManager
     {
-        // Static variables for 
+        // Static variables for axis spacing
         public static int X_AXIS_INCREMENT = 25;
         public static int Y_AXIS_INCREMENT = 25;
 
+        // Static variables for controlling limits on axis
         public static double Y_MAX = 100;
         public static double Y_MIN = 0;
         public static double X_MAX = 100;
         public static double X_MIN = 0;
 
+        // Controls the spacing between the edge of the panel and the graph
         public static double N_PADDING = 0.10;
         public static double E_PADDING = 0.95;
         public static double S_PADDING = 0.85;
