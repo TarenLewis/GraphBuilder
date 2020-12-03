@@ -41,6 +41,7 @@
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.clearGraphButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.filesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +50,6 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadDatasetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.display = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +71,7 @@
             this.tableLayoutPanel1.Controls.Add(this.comboBox4, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.comboBox5, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 0, 13);
+            this.tableLayoutPanel1.Controls.Add(this.clearGraphButton, 0, 13);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(781, 28);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -114,11 +114,12 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Line Chart",
             "Scatterplot"});
-            this.comboBox1.Location = new System.Drawing.Point(39, 35);
+            this.comboBox1.Location = new System.Drawing.Point(39, 36);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 24);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -159,11 +160,12 @@
             this.comboBox2.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.comboBox2.Location = new System.Drawing.Point(39, 99);
+            this.comboBox2.Location = new System.Drawing.Point(39, 100);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 24);
             this.comboBox2.TabIndex = 5;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -182,11 +184,12 @@
             this.comboBox3.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.comboBox3.Location = new System.Drawing.Point(39, 163);
+            this.comboBox3.Location = new System.Drawing.Point(39, 164);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 24);
             this.comboBox3.TabIndex = 7;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -205,11 +208,12 @@
             this.comboBox4.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.comboBox4.Location = new System.Drawing.Point(39, 227);
+            this.comboBox4.Location = new System.Drawing.Point(39, 228);
             this.comboBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(121, 24);
             this.comboBox4.TabIndex = 9;
+            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -228,11 +232,23 @@
             this.comboBox5.Items.AddRange(new object[] {
             "True",
             "False"});
-            this.comboBox5.Location = new System.Drawing.Point(39, 291);
+            this.comboBox5.Location = new System.Drawing.Point(39, 292);
             this.comboBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(121, 24);
             this.comboBox5.TabIndex = 11;
+            this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
+            // 
+            // clearGraphButton
+            // 
+            this.clearGraphButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.clearGraphButton.Location = new System.Drawing.Point(62, 420);
+            this.clearGraphButton.Name = "clearGraphButton";
+            this.clearGraphButton.Size = new System.Drawing.Size(75, 23);
+            this.clearGraphButton.TabIndex = 12;
+            this.clearGraphButton.Text = "Clear";
+            this.clearGraphButton.UseVisualStyleBackColor = true;
+            this.clearGraphButton.Click += new System.EventHandler(this.clearGraphButton_click);
             // 
             // menuStrip1
             // 
@@ -267,28 +283,28 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.openToolStripMenuItem.Text = "Open Graph";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.saveToolStripMenuItem.Text = "Save Graph";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // loadDatasetToolStripMenuItem
             // 
             this.loadDatasetToolStripMenuItem.Name = "loadDatasetToolStripMenuItem";
-            this.loadDatasetToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.loadDatasetToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.loadDatasetToolStripMenuItem.Text = "Load Dataset";
             this.loadDatasetToolStripMenuItem.Click += new System.EventHandler(this.loadDatasetToolStripMenuItem_Click);
             // 
@@ -301,17 +317,6 @@
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(781, 525);
             this.display.TabIndex = 4;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button2.Location = new System.Drawing.Point(62, 420);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Clear";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // GUI
             // 
@@ -358,7 +363,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Panel display;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button clearGraphButton;
     }
 }
 

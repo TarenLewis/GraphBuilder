@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GraphBuilder
 {
-    // 
+    // This class is for handling the separate thread that creates the graph
     class GraphRender
     {
         // Non-static thread 

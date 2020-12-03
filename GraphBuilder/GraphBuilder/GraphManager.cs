@@ -57,6 +57,8 @@ namespace GraphBuilder.Manager
             graph.addComponent(vaxis);
 
             graph.addComponent(data);
+
+            graphList.Add(graph);
         }
 
         public void openData(string path)
@@ -116,7 +118,7 @@ namespace GraphBuilder.Manager
             }
             catch (Exception ex)
             {
-                //Log exception here
+                Console.WriteLine("\nThere was an isue with writing the object.\n{0}", ex.Message);
             }
         }
 

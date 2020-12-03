@@ -20,6 +20,7 @@ namespace GraphBuilder.Graphing
     public interface GraphComponentIF
     {
         void draw(Panel p);
+        string getComponentType();
     }
 
 
@@ -29,6 +30,8 @@ namespace GraphBuilder.Graphing
         private List<GraphComponentIF> components = new List<GraphComponentIF>();
         private string title = "Y vs X";
         public bool title_on = true;
+        public string fileName;
+        private string componentType = "Graph";
 
         // Add component to subcomponents 
         public void addComponent(GraphComponentIF c)
@@ -42,6 +45,20 @@ namespace GraphBuilder.Graphing
             components.Remove(c);
         }
 
+        public List<GraphComponentIF> getComponentList()
+        {
+            return components;
+        }
+
+        public void setFileName(string name)
+        {
+            this.fileName = name;
+        }
+
+        public string getFileName()
+        {
+            return this.fileName;
+        }
 
         public void setTitle(string title)
         {
@@ -63,6 +80,11 @@ namespace GraphBuilder.Graphing
             foreach (GraphComponentIF c in components)
                 c.draw(p);
 
+        }
+
+        public string getComponentType()
+        {
+            return componentType;
         }
     }
 
