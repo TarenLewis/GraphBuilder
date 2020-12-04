@@ -105,7 +105,9 @@ namespace GraphBuilder
 
                 // Set this graph's file name.
                 graphmanager.graph.setFileName(saveFileDialog.FileName);
+                graphmanager.saveGraphObject(graphmanager.graph, path);
 
+                /*
                 if ((myStream = saveFileDialog.OpenFile()) != null)
                 {
                     if(graphmanager.graph != null)
@@ -114,6 +116,8 @@ namespace GraphBuilder
                     }
                     myStream.Close();
                 }
+                */
+                
             }
 
 

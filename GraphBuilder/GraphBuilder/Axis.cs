@@ -25,7 +25,6 @@ namespace GraphBuilder.Graphing
         private List<VAxisIF> components = new List<VAxisIF>();
         private string title = "Y - Axis";
         public bool title_on = true;
-        private string componentType = "VAxis";
 
         // Controls incrementing for axes 
         public static int incr = 25;
@@ -93,7 +92,6 @@ namespace GraphBuilder.Graphing
         private List<HAxisIF> components = new List<HAxisIF>();
         private string title = "X - Axis";
         public bool title_on = true;
-        private string componentType = "HAxis";
 
         // Controls incrementing for axes 
         public static int incr = 25;
