@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using GraphBuilder.Manager;
@@ -13,7 +14,7 @@ namespace GraphBuilder.Graphing
     
 
     // GraphComponentIF to handle composite graph object
-    public interface GraphComponentIF
+    public interface GraphComponentIF : ICloneable
     {
         void draw(Panel p);
     }
@@ -25,7 +26,9 @@ namespace GraphBuilder.Graphing
         private List<GraphComponentIF> components = new List<GraphComponentIF>();
         private string title = "Y vs X";
         public bool title_on = true;
+
         private string fileName;
+
 
         // Add component to subcomponents 
         public void addComponent(GraphComponentIF c)
@@ -76,6 +79,28 @@ namespace GraphBuilder.Graphing
 
         }
 
+        public object Clone()
+        {
+            // Copy for value types
+            Graph tempGraph = (Graph)this.MemberwiseClone();
+
+            // Copy String Reference types
+            tempGraph.title = String.Copy(this.title);
+            tempGraph.fileName = String.Copy(this.fileName);
+
+            // Copy component references
+            List<GraphComponentIF> tempComponentList = new List<GraphComponentIF>();
+
+            foreach(GraphComponentIF gcif in this.components)
+            {
+                tempComponentList.Add((GraphComponentIF)gcif.Clone());
+            }
+
+            // Set equal to new reference
+            tempGraph.components = tempComponentList;
+
+            return tempGraph;
+        }
     }
 
 

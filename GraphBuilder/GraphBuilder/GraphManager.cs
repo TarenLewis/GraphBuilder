@@ -33,14 +33,14 @@ namespace GraphBuilder.Manager
 
 
 
-        private HAxis haxis = new HAxis();
-        private HAxisGridLines hgridlines = new HAxisGridLines();
-        private HAxisTickMarks htickmarks = new HAxisTickMarks();
+        private XAxis haxis = new XAxis();
+        private XAxisGridLines hgridlines = new XAxisGridLines();
+        private XAxisTickMarks htickmarks = new XAxisTickMarks();
 
 
-        private VAxis vaxis = new VAxis();
-        private VAxisGridLines vgridlines = new VAxisGridLines();
-        private VAxisTickMarks vtickmarks = new VAxisTickMarks();
+        private YAxis vaxis = new YAxis();
+        private YAxisGridLines vgridlines = new YAxisGridLines();
+        private YAxisTickMarks vtickmarks = new YAxisTickMarks();
 
         private Data data = new Data();
         private Line line = new Line();
@@ -149,7 +149,10 @@ namespace GraphBuilder.Manager
 
         public void saveGraphObject<Graph>(Graph serializableObject, string fileName)
         {
-            if (serializableObject == null) { return; }
+            Console.WriteLine("Inside saveGraphObject");
+            if (serializableObject == null) {
+                Console.WriteLine("Object is null inside saveGraphObject function");
+                return; }
 
             try
             {
@@ -165,7 +168,7 @@ namespace GraphBuilder.Manager
             }
             catch (Exception ex)
             {
-                Console.WriteLine("\nThere was an isue with writing the object.\n{0}", ex.Message);
+                Console.WriteLine("\nThere was an isue with WRITING the object.\n{0}", ex.Message);
             }
         }
 
@@ -194,7 +197,7 @@ namespace GraphBuilder.Manager
             }
             catch (Exception ex)
             {
-                //Log exception here
+                Console.WriteLine("\nThere was an isue with READING the object.\n{0}", ex.Message);
             }
 
             return objectOut;

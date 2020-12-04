@@ -38,6 +38,26 @@ namespace GraphBuilder.Graphing
         {
             components.Remove(dif);
         }
+
+        public object Clone()
+        {
+            // Memberwise clone value types
+            Data tempData = (Data)this.MemberwiseClone();
+
+            // Create new temporary list reference.
+            List<DataIF> tempDataList = new List<DataIF>();
+
+            // Clone each reference of dif components
+            foreach(DataIF dif in this.components)
+            {
+                tempDataList.Add((DataIF)dif.Clone());
+            }
+
+            // Copy reference of temp list.
+            tempData.components = tempDataList;
+
+            return tempData;
+        }
     }
 
     // Class to represent a point on the graph
@@ -94,13 +114,21 @@ namespace GraphBuilder.Graphing
             g.FillEllipse(brush, (float) (location_x - radius), (float) (location_y - radius), (float) (2*radius), (float) (2*radius));
 
         }
+
+        public object Clone()
+        {
+            // Shallow copy since Color is value type (struct), as well as the ints.
+            Point temporaryPoint = (Point)this.MemberwiseClone();
+
+            return temporaryPoint;
+        }
     }
 
     // Class to add lines to the graph 
     public class Line : DataIF
     {
-        private List<Point> points = new List<Point>();
-        private Color c = Color.Red;
+        List<Point> points = new List<Point>();
+        Color c = Color.Red;
 
         // Add point: all plotted points should be in the list
         public void addPoint(Point p)
@@ -147,6 +175,25 @@ namespace GraphBuilder.Graphing
                 y1 = y2;
             }
             
+        }
+
+        public object Clone()
+        {
+            // Shallow copy Color c;
+            Line temporaryLine = (Line)this.MemberwiseClone();
+
+            // Create new object reference and set equal to this.points
+            List<Point> tempPoints2 = new List<Point>();
+            foreach (Point p in this.points)
+            {
+                tempPoints2.Add((Point)p.Clone());
+            }
+
+            // assign temporaryLine.points to newly created object reference.
+            temporaryLine.points = tempPoints2;
+
+            // Return deep copy
+            return temporaryLine;
         }
     }
     

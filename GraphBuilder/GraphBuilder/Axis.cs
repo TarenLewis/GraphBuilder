@@ -7,22 +7,22 @@ namespace GraphBuilder.Graphing
 {
 
     // Marker interface to control the composition of Y - Axis
-    public interface VAxisIF : GraphComponentIF
+    public interface YAxisIF : GraphComponentIF
     {
 
     }
 
     // Marker interface to control the composition of X - Axis
-    public interface HAxisIF : GraphComponentIF
+    public interface XAxisIF : GraphComponentIF
     {
 
     }
 
 
     // Controls the Line and title for Y - Axis
-    public class VAxis : VAxisIF
+    public class YAxis : YAxisIF
     {
-        private List<VAxisIF> components = new List<VAxisIF>();
+        private List<YAxisIF> components = new List<YAxisIF>();
         private string title = "Y - Axis";
         public bool title_on = true;
 
@@ -31,14 +31,14 @@ namespace GraphBuilder.Graphing
 
 
         // Add objects to the composition 
-        public void addComponent(VAxisIF vaif)
+        public void addComponent(YAxisIF vaif)
         {
             components.Add(vaif);
         }
 
 
         // Remove objects from the composition 
-        public void removeComponent(VAxisIF vaif)
+        public void removeComponent(YAxisIF vaif)
         {
             components.Remove(vaif);
         }
@@ -65,8 +65,8 @@ namespace GraphBuilder.Graphing
 
 
             // Draw all subcomponents 
-            foreach (VAxisIF vaif in components)
-                vaif.draw(p);
+            foreach (YAxisIF yaif in components)
+                yaif.draw(p);
 
             // Draw Title
             if (title_on)
@@ -80,16 +80,27 @@ namespace GraphBuilder.Graphing
             }
         }
 
-        public string getComponentType()
+        public object Clone()
         {
-            return componentType;
+            YAxis tempYAxis = (YAxis)this.MemberwiseClone();
+
+            List<YAxisIF> tempComponentsList = new List<YAxisIF>();
+
+            foreach(YAxisIF yaif in this.components)
+            {
+                tempComponentsList.Add((YAxisIF)yaif.Clone());
+            }
+
+            tempYAxis.components = tempComponentsList;
+
+            return tempYAxis;
         }
     }
 
     // Controls line and title for X - Axis 
-    public class HAxis : HAxisIF
+    public class XAxis : XAxisIF
     {
-        private List<HAxisIF> components = new List<HAxisIF>();
+        private List<XAxisIF> components = new List<XAxisIF>();
         private string title = "X - Axis";
         public bool title_on = true;
 
@@ -97,14 +108,14 @@ namespace GraphBuilder.Graphing
         public static int incr = 25;
 
         // Add subcomponent 
-        public void addComponent(HAxisIF haif)
+        public void addComponent(XAxisIF haif)
         {
             components.Add(haif);
         }
 
 
         // Remove subcomponent 
-        public void removeComponent(HAxisIF haif)
+        public void removeComponent(XAxisIF haif)
         {
             components.Remove(haif);
         }
@@ -137,22 +148,39 @@ namespace GraphBuilder.Graphing
             }
 
             // Draw all subcomponents 
-            foreach (HAxisIF haif in components)
-                haif.draw(p);
+            foreach (XAxisIF xaif in components)
+                xaif.draw(p);
         }
 
-        public string getComponentType()
+        public object Clone()
         {
-            return componentType;
+            XAxis tempXAxis = (XAxis)this.MemberwiseClone();
+
+            List<XAxisIF> tempComponentsList = new List<XAxisIF>();
+
+            foreach (XAxisIF xaif in this.components)
+            {
+                tempComponentsList.Add((XAxisIF)xaif.Clone());
+            }
+
+            tempXAxis.components = tempComponentsList;
+
+            return tempXAxis;
         }
     }
 
     // Class to control horizontal gridlines for the Y-axis
-    public class VAxisGridLines : VAxisIF
+    public class YAxisGridLines : YAxisIF
     {
         private float thickness = 0.75F;
         private Color c = Color.Gray;
 
+        public object Clone()
+        {
+            YAxisGridLines tempYGrid = (YAxisGridLines)this.MemberwiseClone();
+
+            return tempYGrid;
+        }
 
         public void draw(Panel p)
         {
@@ -182,11 +210,17 @@ namespace GraphBuilder.Graphing
     }
 
     // Class to control vertical gridlines for the X-axis
-    public class HAxisGridLines : HAxisIF
+    public class XAxisGridLines : XAxisIF
     {
         private float thickness = 0.75F;
         private Color c = Color.Gray;
-        private string componentType = "HAxisGridLines";
+
+        public object Clone()
+        {
+            XAxisGridLines tempXGrid = (XAxisGridLines)this.MemberwiseClone();
+
+            return tempXGrid;
+        }
 
         public void draw(Panel p)
         {
@@ -209,19 +243,21 @@ namespace GraphBuilder.Graphing
             }
         }
 
-        public string getComponentType()
-        {
-            return componentType;
-        }
     }
 
 
     // Controls major tick marks for the Y-axis
-   public class VAxisTickMarks : VAxisIF
+   public class YAxisTickMarks : YAxisIF
     {
         private Color c = Color.Black;
         private float thickness = 1;
-        private string componentType = "VAxisTickMarks";
+
+        public object Clone()
+        {
+            YAxisTickMarks tempYTicks = (YAxisTickMarks)this.MemberwiseClone();
+
+            return tempYTicks;
+        }
 
         public void draw(Panel p)
         {
@@ -254,18 +290,20 @@ namespace GraphBuilder.Graphing
             }
         }
 
-        public string getComponentType()
-        {
-            return componentType;
-        }
     }
 
     // Controls major tick marks for the X-axis
-    public class HAxisTickMarks : HAxisIF
+    public class XAxisTickMarks : XAxisIF
     {
         private Color c = Color.Black;
         private float thickness = 1;
-        private string componentType = "HAxisTickMarks";
+
+        public object Clone()
+        {
+            XAxisTickMarks tempXTicks = (XAxisTickMarks)this.MemberwiseClone();
+
+            return tempXTicks;
+        }
 
         public void draw(Panel p)
         {
@@ -306,10 +344,6 @@ namespace GraphBuilder.Graphing
             
         }
 
-        public string getComponentType()
-        {
-            return componentType;
-        }
     }
     
 }
