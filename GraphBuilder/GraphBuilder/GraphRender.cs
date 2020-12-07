@@ -48,7 +48,7 @@ namespace GraphBuilder.Rendering
 
         RenderFuture getFuture()
         {
-            throw new NotImplementedException;
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,5 +1,6 @@
 
 ﻿using GraphBuilder.Graphing;
+using GraphBuilder.Observer;
 using GraphBuilder.Rendering;
 using System;
 using System.Collections.Generic;

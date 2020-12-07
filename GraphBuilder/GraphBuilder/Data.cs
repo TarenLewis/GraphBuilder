@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using GraphBuilder.Manager;
+using GraphBuilder.Observer;
 
 namespace GraphBuilder.Graphing
 {
@@ -121,6 +122,11 @@ namespace GraphBuilder.Graphing
             Point temporaryPoint = (Point)this.MemberwiseClone();
 
             return temporaryPoint;
+        }
+
+        public void notify(double x)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
