@@ -61,7 +61,7 @@ namespace GraphBuilder.Graphing
     }
 
     // Class to represent a point on the graph
-    public class Point : DataIF
+    public class Point : DataIF, ObserverIF
     {
         // x and y data point, not GUI location
         private double radius, x, y;

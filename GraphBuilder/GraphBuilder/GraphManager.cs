@@ -1,5 +1,6 @@
 
 ﻿using GraphBuilder.Graphing;
+using GraphBuilder.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -28,8 +29,13 @@ namespace GraphBuilder.Manager
         public static double S_PADDING = 0.85;
         public static double W_PADDING = 0.15;
 
-
         public Graph graph = new Graph();
+        
+        // Used for rendering the graph with Future pattern
+        private GraphRenderRequester graphRenderRequester;
+
+        // Observer Pattern
+        private Notifier notifier;
 
 
 
