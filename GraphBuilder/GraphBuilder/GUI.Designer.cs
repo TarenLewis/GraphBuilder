@@ -147,7 +147,7 @@
             this.okButton.TabIndex = 3;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
-            this.okButton.Click += new System.EventHandler(this.button1_Click);
+            this.okButton.Click += new System.EventHandler(this.okbutton_Click);
             // 
             // label4
             // 
@@ -347,7 +347,9 @@
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(586, 425);
             this.display.TabIndex = 4;
+            this.display.MouseEnter += new System.EventHandler(this.display_MouseEnter);
             this.display.MouseMove += new System.Windows.Forms.MouseEventHandler(this.display_MouseMove);
+            this.display.Resize += new System.EventHandler(this.display_Resize);
             // 
             // GUI
             // 

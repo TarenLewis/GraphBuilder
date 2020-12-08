@@ -13,7 +13,6 @@ namespace GraphBuilder.Observer
 
     class Notifier
     {
-        private int[] x_values;
         private ObserverIF[] observer_points;
         private double location_x_max, location_x_min;
 
@@ -23,7 +22,6 @@ namespace GraphBuilder.Observer
             location_x_max = p.Width * GraphManager.E_PADDING;
             location_x_min = p.Width * GraphManager.W_PADDING;
 
-            x_values = new int[p.Width];
             observer_points = new ObserverIF[p.Width];   
         }
 

@@ -12,7 +12,8 @@ namespace GraphBuilder
     {
 
         GraphManager graphmanager;
-        Bitmap temp_foreground;
+        Bitmap background_image;
+        bool background_flag = false;
 
         public GUI()
         {
@@ -28,12 +29,12 @@ namespace GraphBuilder
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
 
-            temp_foreground = new Bitmap(display.Width, display.Height);
+            background_image = new Bitmap(display.Width, display.Height);
 
         }
 
         // OK button 
-        private void button1_Click(object sender, EventArgs e)
+        private void okbutton_Click(object sender, EventArgs e)
         {
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
@@ -185,13 +186,20 @@ namespace GraphBuilder
 
         private void display_MouseMove(object sender, MouseEventArgs e)
         {
-           
-            ///display.DrawToBitmap(temp_foreground, new Rectangle(0, 0, display.Width, display.Height));
+            Graphics g = display.CreateGraphics();
+            g.DrawImage(background_image, 0, 0);
             graphmanager.handleMouseMove(display, e.X);
+        }
 
-            //Graphics g = display.CreateGraphics();
-            //g.DrawImage(temp_foreground, 0, 0);
-            
+        // Handle resize event
+        private void display_Resize(object sender, EventArgs e)
+        {
+
+        }
+
+        private void display_MouseEnter(object sender, EventArgs e)
+        {
+            display.DrawToBitmap(background_image, new Rectangle(0, 0, display.Width, display.Height));
         }
     }
 }

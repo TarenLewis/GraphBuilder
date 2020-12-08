@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using GraphBuilder.Manager;
@@ -72,11 +73,18 @@ namespace GraphBuilder.Graphing
             if (title_on)
             {
                 Font f = new Font("Times New Roman", 14);
-                g.TranslateTransform(5, p.Height / 2);
+                
+
+                // Determine size of title and center it in top
+                SizeF title_dimensions = g.MeasureString(title, f);
+                SizeF data_label_dimensions = g.MeasureString(GraphManager.Y_MAX.ToString(), f);
+                double title_x_location = p.Width * GraphManager.W_PADDING - data_label_dimensions.Width * 1.25 - title_dimensions.Height;
+                double title_y_location = p.Height/2 + title_dimensions.Width/2;
+
+                g.TranslateTransform((float) title_x_location, (float) title_y_location);
                 g.RotateTransform(270F);
 
                 g.DrawString(title, f, Brushes.Black, 0, 0);
-
             }
         }
 
@@ -144,7 +152,15 @@ namespace GraphBuilder.Graphing
             if (title_on)
             {
                 Font f = new Font("Times New Roman", 14);
-                g.DrawString(title, f, Brushes.Black, p.Width / 2, (float)(p.Height - (p.Height - p.Height * GraphManager.S_PADDING) / 2));
+
+                // Determine size of title and center it in top
+                SizeF title_dimensions = g.MeasureString(title, f);
+                SizeF data_label_dimensions = g.MeasureString(GraphManager.X_MAX.ToString(), f);
+                double title_x_location = p.Width / 2 - title_dimensions.Width / 2;
+                double title_y_location = p.Height * GraphManager.S_PADDING + data_label_dimensions.Width * Math.Sin(45F);
+
+
+                g.DrawString(title, f, Brushes.Black, (float) title_x_location, (float) title_y_location);
             }
 
             // Draw all subcomponents 

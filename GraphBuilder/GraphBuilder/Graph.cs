@@ -66,12 +66,19 @@ namespace GraphBuilder.Graphing
         public void draw(Panel p)
         {
 
+            // Draw graph title if needed
             if (title_on)
             {
                 Graphics g = p.CreateGraphics();
                 Font f = new Font("Times new roman", 16);
 
-                g.DrawString(title, f, Brushes.Black, p.Width / 2, 5);
+                // Determine size of title and center it in top
+                SizeF title_dimensions = g.MeasureString(title, f);
+                double title_x_location = p.Width / 2 - title_dimensions.Width / 2;
+                double title_y_location = p.Height * GraphManager.N_PADDING / 2 - title_dimensions.Height / 2;
+
+
+                g.DrawString(title, f, Brushes.Black, (float) title_x_location, (float) title_y_location );
             }
 
             foreach (GraphComponentIF c in components)

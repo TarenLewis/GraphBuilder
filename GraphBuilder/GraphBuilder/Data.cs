@@ -195,12 +195,6 @@ namespace GraphBuilder.Graphing
             Font f = new Font("Times New Roman", 9);
             g.DrawString(coord, f, Brushes.Black, (float) location_x, (float) location_y);
 
-            /*
-            Label label = new Label();
-            label.Text = coord;
-            label.Location = new System.Drawing.Point((int)point.getX(), (int)point.getY());
-            p.Controls.Add(label);
-            */
         }
     }
 
