@@ -14,6 +14,7 @@ namespace GraphBuilder.Rendering
     public class GraphRenderRequester
     {
         private Bitmap bmp;
+        RenderFuture renderFuture;
 
         public GraphRenderRequester(Panel p)
         {
@@ -40,7 +41,7 @@ namespace GraphBuilder.Rendering
             Thread t = new Thread(new ThreadStart(renderThread.start));
         }
 
-        public bool check()
+        public bool checkIfReady()
         {
             return resultready;
         }

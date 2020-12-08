@@ -36,6 +36,7 @@ namespace GraphBuilder
                 await Task.Delay(25);
             }
 
+            // Draw on display when future is ready
             graphmanager.graph.draw(display);
         }
 
