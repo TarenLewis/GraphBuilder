@@ -29,7 +29,7 @@ namespace GraphBuilder
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
 
-            background_image = new Bitmap(display.Width, display.Height);
+            background_image = new Bitmap(display.Width, display.Height, display.CreateGraphics());
 
         }
 
@@ -38,7 +38,9 @@ namespace GraphBuilder
         {
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
-            graphmanager.graph.draw(display);
+            graphmanager.graph.draw(background_image);
+
+            g.DrawImage(background_image, 0, 0);
         }
 
 
@@ -62,7 +64,9 @@ namespace GraphBuilder
                     graphmanager.graph = new Graph();
                     graphmanager.graph = graphmanager.openGraphObject<Graph>(path);
                     
-                    graphmanager.graph.draw(display);
+                    graphmanager.graph.draw(background_image);
+                    Graphics g = display.CreateGraphics();
+                    g.DrawImage(background_image, 0, 0);
                 }
 
 
@@ -187,19 +191,19 @@ namespace GraphBuilder
         private void display_MouseMove(object sender, MouseEventArgs e)
         {
             Graphics g = display.CreateGraphics();
-            g.DrawImage(background_image, 0, 0);
+            //g.DrawImage(background_image, 0, 0);
             graphmanager.handleMouseMove(display, e.X);
         }
 
         // Handle resize event
         private void display_Resize(object sender, EventArgs e)
         {
-
+            background_image = new Bitmap(display.Width, display.Height);
         }
 
         private void display_MouseEnter(object sender, EventArgs e)
         {
-            display.DrawToBitmap(background_image, new Rectangle(0, 0, display.Width, display.Height));
+            
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using GraphBuilder.Manager;
 
@@ -16,7 +17,7 @@ namespace GraphBuilder.Graphing
     // GraphComponentIF to handle composite graph object
     public interface GraphComponentIF : ICloneable
     {
-        void draw(Panel p);
+        void draw(Bitmap bmp);
     }
 
 
@@ -63,26 +64,28 @@ namespace GraphBuilder.Graphing
         }
 
         // Draw all subcompoents onto graphic 
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
 
             // Draw graph title if needed
             if (title_on)
             {
-                Graphics g = p.CreateGraphics();
+                Graphics g = Graphics.FromImage(bmp);
                 Font f = new Font("Times new roman", 16);
 
                 // Determine size of title and center it in top
                 SizeF title_dimensions = g.MeasureString(title, f);
-                double title_x_location = p.Width / 2 - title_dimensions.Width / 2;
-                double title_y_location = p.Height * GraphManager.N_PADDING / 2 - title_dimensions.Height / 2;
+                double title_x_location = bmp.Width / 2 - title_dimensions.Width / 2;
+                double title_y_location = bmp.Height * GraphManager.N_PADDING / 2 - title_dimensions.Height / 2;
 
-
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
                 g.DrawString(title, f, Brushes.Black, (float) title_x_location, (float) title_y_location );
+
+                g.Dispose();
             }
 
             foreach (GraphComponentIF c in components)
-                c.draw(p);
+                c.draw(bmp);
 
         }
 

@@ -22,10 +22,10 @@ namespace GraphBuilder.Graphing
 
 
         // Draw all subcomponents
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             foreach (DataIF dif in components)
-                dif.draw(p);
+                dif.draw(bmp);
         }
 
         // Add subcomponent
@@ -107,25 +107,28 @@ namespace GraphBuilder.Graphing
             return this.radius;
         }
 
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             // Locations on the GUI
-            double location_x_min = p.Width * GraphManager.W_PADDING;
-            double location_x_max = p.Width * GraphManager.E_PADDING;
-            double location_y_min = p.Height * GraphManager.S_PADDING;
-            double location_y_max = p.Height * GraphManager.N_PADDING;
+            double location_x_min = bmp.Width * GraphManager.W_PADDING;
+            double location_x_max = bmp.Width * GraphManager.E_PADDING;
+            double location_y_min = bmp.Height * GraphManager.S_PADDING;
+            double location_y_max = bmp.Height * GraphManager.N_PADDING;
 
             // Calculate GUI location using ratios
             double location_x = (x / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min;
             double location_y = (y / (GraphManager.Y_MAX - GraphManager.Y_MIN)) * (location_y_max - location_y_min) + location_y_min;
 
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
             Pen pen = new Pen(c);
             Brush brush = new SolidBrush(c);
 
             g.DrawEllipse(pen, (float) (location_x - radius), (float) (location_y -  radius), (float) (2*radius), (float) (2*radius));
             g.FillEllipse(brush, (float) (location_x - radius), (float) (location_y - radius), (float) (2*radius), (float) (2*radius));
 
+            g.Dispose();
+            brush.Dispose();
+            pen.Dispose();
         }
 
         public object Clone()
@@ -150,6 +153,9 @@ namespace GraphBuilder.Graphing
             Graphics g = p.CreateGraphics();
             Pen pen = new Pen(Brushes.Red, 0.75F);
             g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
+
+            g.Dispose();
+            pen.Dispose();
         }
     }
 
@@ -162,7 +168,7 @@ namespace GraphBuilder.Graphing
             throw new System.NotImplementedException();
         }
 
-        public abstract void draw(Panel p);
+        public abstract void draw(Bitmap bmp);
     }
 
     public class PointWithCoordinates : AbstractPointWrapper
@@ -172,29 +178,32 @@ namespace GraphBuilder.Graphing
             point = new Point(p.getX(), p.getY(), p.getR());
         }
 
-        public override void draw(Panel p)
+        public override void draw(Bitmap bmp)
         {
             string x_str = this.point.getX().ToString("#.##");
             string y_str = this.point.getY().ToString("#.##");
 
             string coord = "(" + x_str + ", " + y_str + ")";
 
-            this.point.draw(p);
+            this.point.draw(bmp);
 
             // Locations on the GUI
-            double location_x_min = p.Width * GraphManager.W_PADDING;
-            double location_x_max = p.Width * GraphManager.E_PADDING;
-            double location_y_min = p.Height * GraphManager.S_PADDING;
-            double location_y_max = p.Height * GraphManager.N_PADDING;
+            double location_x_min = bmp.Width * GraphManager.W_PADDING;
+            double location_x_max = bmp.Width * GraphManager.E_PADDING;
+            double location_y_min = bmp.Height * GraphManager.S_PADDING;
+            double location_y_max = bmp.Height * GraphManager.N_PADDING;
 
             // Calculate GUI location using ratios
             double location_x = (point.getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min;
             double location_y = (point.getY() / (GraphManager.Y_MAX - GraphManager.Y_MIN)) * (location_y_max - location_y_min) + location_y_min;
 
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
             Font f = new Font("Times New Roman", 9);
             g.DrawString(coord, f, Brushes.Black, (float) location_x, (float) location_y);
 
+            g.Dispose();
+            f.Dispose();
         }
     }
 
@@ -225,20 +234,20 @@ namespace GraphBuilder.Graphing
 
 
         //Connect a line between all points
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             if (points.Count == 0)
                 return;
 
             // locations on the GUI
-            double location_x_min = p.Width * GraphManager.W_PADDING;
-            double location_x_max = p.Width * GraphManager.E_PADDING;
-            double location_y_min = p.Height * GraphManager.S_PADDING;
-            double location_y_max = p.Height * GraphManager.N_PADDING;
+            double location_x_min = bmp.Width * GraphManager.W_PADDING;
+            double location_x_max = bmp.Width * GraphManager.E_PADDING;
+            double location_y_min = bmp.Height * GraphManager.S_PADDING;
+            double location_y_max = bmp.Height * GraphManager.N_PADDING;
 
 
             double x1, y1, x2, y2;
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
             Pen pen = new Pen(c, 0.75F);
 
             x1 = (points[0].getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min;
@@ -255,7 +264,9 @@ namespace GraphBuilder.Graphing
                 x1 = x2;
                 y1 = y2;
             }
-            
+
+            g.Dispose();
+            pen.Dispose();
         }
 
         public object Clone()

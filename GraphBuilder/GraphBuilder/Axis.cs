@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 using GraphBuilder.Manager;
 
 namespace GraphBuilder.Graphing
@@ -51,23 +50,24 @@ namespace GraphBuilder.Graphing
         }
 
         // Draw the horizontal line, title, and all sub component objects
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             // Draw line from bottom point (x1, y1) to top point (x2, y2)
-            double x1 = p.Width * GraphManager.W_PADDING;
-            double y1 = p.Height * GraphManager.S_PADDING;
+            double x1 = bmp.Width * GraphManager.W_PADDING;
+            double y1 = bmp.Height * GraphManager.S_PADDING;
             double x2 = x1;
-            double y2 = p.Height * GraphManager.N_PADDING;
+            double y2 = bmp.Height * GraphManager.N_PADDING;
 
             Pen pen = new Pen(Color.Black, 2);
 
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
             g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
 
 
             // Draw all subcomponents 
             foreach (YAxisIF yaif in components)
-                yaif.draw(p);
+                yaif.draw(bmp);
 
             // Draw Title
             if (title_on)
@@ -78,14 +78,18 @@ namespace GraphBuilder.Graphing
                 // Determine size of title and center it in top
                 SizeF title_dimensions = g.MeasureString(title, f);
                 SizeF data_label_dimensions = g.MeasureString(GraphManager.Y_MAX.ToString(), f);
-                double title_x_location = p.Width * GraphManager.W_PADDING - data_label_dimensions.Width * 1.25 - title_dimensions.Height;
-                double title_y_location = p.Height/2 + title_dimensions.Width/2;
+                double title_x_location = bmp.Width * GraphManager.W_PADDING - data_label_dimensions.Width * 1.25 - title_dimensions.Height;
+                double title_y_location = bmp.Height/2 + title_dimensions.Width/2;
 
                 g.TranslateTransform((float) title_x_location, (float) title_y_location);
                 g.RotateTransform(270F);
 
                 g.DrawString(title, f, Brushes.Black, 0, 0);
+                f.Dispose();
             }
+
+            g.Dispose();
+            pen.Dispose();
         }
 
         public object Clone()
@@ -135,18 +139,20 @@ namespace GraphBuilder.Graphing
         }
 
         // Draw horizontal line, title, and all subcomponents
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             // Draw line from left point (x1, y1) to right (x2, y2)
-            double x1 = p.Width * GraphManager.W_PADDING;
-            double y1 = p.Height * GraphManager.S_PADDING;
-            double x2 = p.Width * GraphManager.E_PADDING;
+            double x1 = bmp.Width * GraphManager.W_PADDING;
+            double y1 = bmp.Height * GraphManager.S_PADDING;
+            double x2 = bmp.Width * GraphManager.E_PADDING;
             double y2 = y1;
 
             Pen pen = new Pen(Color.Black, 2);
 
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
             g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+
 
             // Draw Title
             if (title_on)
@@ -156,16 +162,21 @@ namespace GraphBuilder.Graphing
                 // Determine size of title and center it in top
                 SizeF title_dimensions = g.MeasureString(title, f);
                 SizeF data_label_dimensions = g.MeasureString(GraphManager.X_MAX.ToString(), f);
-                double title_x_location = p.Width / 2 - title_dimensions.Width / 2;
-                double title_y_location = p.Height * GraphManager.S_PADDING + data_label_dimensions.Width * Math.Sin(45F);
+                double title_x_location = bmp.Width / 2 - title_dimensions.Width / 2;
+                double title_y_location = bmp.Height * GraphManager.S_PADDING + data_label_dimensions.Width * Math.Sin(45F);
 
 
                 g.DrawString(title, f, Brushes.Black, (float) title_x_location, (float) title_y_location);
+                f.Dispose();
             }
 
             // Draw all subcomponents 
             foreach (XAxisIF xaif in components)
-                xaif.draw(p);
+                xaif.draw(bmp);
+
+            g.Dispose();
+            pen.Dispose();
+            
         }
 
         public object Clone()
@@ -198,18 +209,18 @@ namespace GraphBuilder.Graphing
             return tempYGrid;
         }
 
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             // Draw horizontal lines from left point (x1, newy) to right point (x2, newy)
-            double x1 = p.Width * GraphManager.W_PADDING;
-            double x2 = p.Width * GraphManager.E_PADDING;
+            double x1 = bmp.Width * GraphManager.W_PADDING;
+            double x2 = bmp.Width * GraphManager.E_PADDING;
 
-            double y1 = p.Height * GraphManager.N_PADDING;
-            double y2 = p.Height * GraphManager.S_PADDING;
+            double y1 = bmp.Height * GraphManager.N_PADDING;
+            double y2 = bmp.Height * GraphManager.S_PADDING;
             double dy = (y2 - y1) / GraphManager.Y_AXIS_INCREMENT;
 
             Pen pen = new Pen(c, thickness);
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
 
             // Loop through drawing each line for each axis increment
             for (int i = 1; i < GraphManager.Y_AXIS_INCREMENT + 1; i++)
@@ -217,12 +228,12 @@ namespace GraphBuilder.Graphing
                 double newy = y2 - dy * i;
                 g.DrawLine(pen, (float) x1, (float) newy, (float) x2, (float) newy);
             }
+
+
+            g.Dispose();
+            pen.Dispose();
         }
 
-        public string getComponentType()
-        {
-            return "VAxisGridLines";
-        }
     }
 
     // Class to control vertical gridlines for the X-axis
@@ -238,18 +249,18 @@ namespace GraphBuilder.Graphing
             return tempXGrid;
         }
 
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             // Draw vertical lines from bottom point (newx, y1) to top point (newy, y2)
-            double x1 = p.Width * GraphManager.W_PADDING;
-            double x2 = p.Width * GraphManager.E_PADDING;
+            double x1 = bmp.Width * GraphManager.W_PADDING;
+            double x2 = bmp.Width * GraphManager.E_PADDING;
             double dx = (x2 - x1) / GraphManager.X_AXIS_INCREMENT;
 
-            double y1 = p.Height * GraphManager.S_PADDING;
-            double y2 = p.Height * GraphManager.N_PADDING;
+            double y1 = bmp.Height * GraphManager.S_PADDING;
+            double y2 = bmp.Height * GraphManager.N_PADDING;
 
             Pen pen = new Pen(c, thickness);
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
 
             // Loop through drawing each line for each axis increment
             for (int i = 1; i < GraphManager.X_AXIS_INCREMENT + 1; i++)
@@ -257,6 +268,9 @@ namespace GraphBuilder.Graphing
                 double newx = x1 + dx * i;
                 g.DrawLine(pen, (float) newx, (float) y1, (float) newx, (float) y2);
             }
+
+            g.Dispose();
+            pen.Dispose();
         }
 
     }
@@ -275,20 +289,21 @@ namespace GraphBuilder.Graphing
             return tempYTicks;
         }
 
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             double y_max = GraphManager.Y_MAX;
             double y_min = GraphManager.Y_MIN;
 
-            double x1 = p.Width * (GraphManager.W_PADDING - 0.01);
-            double x2 = p.Width * GraphManager.W_PADDING;
+            double x1 = bmp.Width * (GraphManager.W_PADDING - 0.01);
+            double x2 = bmp.Width * GraphManager.W_PADDING;
 
-            double y1 = p.Height * GraphManager.N_PADDING;
-            double y2 = p.Height * GraphManager.S_PADDING;
+            double y1 = bmp.Height * GraphManager.N_PADDING;
+            double y2 = bmp.Height * GraphManager.S_PADDING;
             double dy = (y2 - y1) / GraphManager.Y_AXIS_INCREMENT;
 
             Pen pen = new Pen(c, thickness);
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
 
             double y_incr = (y_max - y_min) / GraphManager.Y_AXIS_INCREMENT;
             string str;
@@ -304,6 +319,10 @@ namespace GraphBuilder.Graphing
                 g.DrawString(str, f, Brushes.Black, (float) x1 - 35, (float) newy - 10);
 
             }
+
+            g.Dispose();
+            pen.Dispose();
+            f.Dispose();
         }
 
     }
@@ -321,21 +340,21 @@ namespace GraphBuilder.Graphing
             return tempXTicks;
         }
 
-        public void draw(Panel p)
+        public void draw(Bitmap bmp)
         {
             double x_max = GraphManager.X_MAX;
             double x_min = GraphManager.X_MIN;
 
 
-            double x1 = p.Width * GraphManager.W_PADDING;
-            double x2 = p.Width * GraphManager.E_PADDING;
+            double x1 = bmp.Width * GraphManager.W_PADDING;
+            double x2 = bmp.Width * GraphManager.E_PADDING;
             double dx = (x2 - x1) / GraphManager.X_AXIS_INCREMENT;
 
-            double y1 = p.Height * (GraphManager.S_PADDING + 0.01);
-            double y2 = p.Height * GraphManager.S_PADDING;
+            double y1 = bmp.Height * (GraphManager.S_PADDING + 0.01);
+            double y2 = bmp.Height * GraphManager.S_PADDING;
 
             Pen pen = new Pen(c, thickness);
-            Graphics g = p.CreateGraphics();
+            Graphics g = Graphics.FromImage(bmp);
 
             double x_incr = (x_max - x_min) / GraphManager.X_AXIS_INCREMENT;
             string str;
@@ -344,11 +363,11 @@ namespace GraphBuilder.Graphing
             // Loop through drawing tick mark lines and adding data labels
             for (int i = 1; i < GraphManager.X_AXIS_INCREMENT + 1; i++)
             {
-                g = p.CreateGraphics();
+                g = Graphics.FromImage(bmp);
 
                 double newx = x1 + dx * i;
                 g.DrawLine(pen, (float) newx, (float) y1, (float) newx, (float) y2);
-
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
 
                 str = ((x_min + x_incr * i)).ToString("#.###");
 
@@ -357,7 +376,9 @@ namespace GraphBuilder.Graphing
                 g.DrawString(str, f, Brushes.Black, 0, 0);
             }
 
-            
+            g.Dispose();
+            pen.Dispose();
+            f.Dispose();
         }
 
     }
