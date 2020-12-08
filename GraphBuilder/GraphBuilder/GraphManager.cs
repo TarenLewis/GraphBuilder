@@ -5,6 +5,7 @@ using GraphBuilder.Rendering;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -37,8 +38,6 @@ namespace GraphBuilder.Manager
         // Observer Pattern
         private Notifier notifier;
 
-
-
         private XAxis haxis = new XAxis();
         private XAxisGridLines hgridlines = new XAxisGridLines();
         private XAxisTickMarks htickmarks = new XAxisTickMarks();
@@ -51,7 +50,7 @@ namespace GraphBuilder.Manager
         private Data data = new Data();
         private Line line = new Line();
 
-        public GraphManager()
+        public GraphManager(Panel p)
         {
             Point p1 = new Point(25, 25, 1.5);
             Point p2 = new Point(50, 50, 1.5);
@@ -77,6 +76,10 @@ namespace GraphBuilder.Manager
             data.addComponent(wrapper2);
             data.addComponent(wrapper3);
 
+            notifier = new Notifier(p);
+            notifier.addObserver(p1);
+            notifier.addObserver(p2);
+            notifier.addObserver(p3);
         }
 
         public void addLine()
@@ -133,6 +136,11 @@ namespace GraphBuilder.Manager
         {
             vaxis.removeComponent(vtickmarks);
             haxis.removeComponent(htickmarks);
+        }
+
+        public void handleMouseMove(Panel p, int x)
+        {
+            notifier.notify(p, x);
         }
         
 

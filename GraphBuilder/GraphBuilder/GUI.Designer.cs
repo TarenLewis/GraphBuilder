@@ -42,6 +42,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.gridLinesComboBox = new System.Windows.Forms.ComboBox();
             this.clearGraphButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.yvalue_label = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.filesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,9 +74,11 @@
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.gridLinesComboBox, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.clearGraphButton, 0, 13);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.yvalue_label, 0, 11);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(586, 24);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 16;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
@@ -116,7 +120,7 @@
             "Line Chart",
             "Scatterplot"});
             this.graphTypeComboBox.Location = new System.Drawing.Point(29, 28);
-            this.graphTypeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.graphTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.graphTypeComboBox.Name = "graphTypeComboBox";
             this.graphTypeComboBox.Size = new System.Drawing.Size(92, 21);
             this.graphTypeComboBox.TabIndex = 1;
@@ -137,7 +141,7 @@
             // 
             this.okButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.okButton.Location = new System.Drawing.Point(47, 398);
-            this.okButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.okButton.Margin = new System.Windows.Forms.Padding(2);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(56, 19);
             this.okButton.TabIndex = 3;
@@ -164,7 +168,7 @@
             "Visible",
             "Invisible"});
             this.xaxisComboBox.Location = new System.Drawing.Point(29, 80);
-            this.xaxisComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.xaxisComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.xaxisComboBox.Name = "xaxisComboBox";
             this.xaxisComboBox.Size = new System.Drawing.Size(92, 21);
             this.xaxisComboBox.TabIndex = 5;
@@ -189,7 +193,7 @@
             "Visible",
             "Invisible"});
             this.yaxisComboBox.Location = new System.Drawing.Point(29, 132);
-            this.yaxisComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.yaxisComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.yaxisComboBox.Name = "yaxisComboBox";
             this.yaxisComboBox.Size = new System.Drawing.Size(92, 21);
             this.yaxisComboBox.TabIndex = 7;
@@ -214,7 +218,7 @@
             "Visible",
             "Invisible"});
             this.tickMarkComboBox.Location = new System.Drawing.Point(29, 184);
-            this.tickMarkComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tickMarkComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.tickMarkComboBox.Name = "tickMarkComboBox";
             this.tickMarkComboBox.Size = new System.Drawing.Size(92, 21);
             this.tickMarkComboBox.TabIndex = 9;
@@ -239,7 +243,7 @@
             "True",
             "False"});
             this.gridLinesComboBox.Location = new System.Drawing.Point(29, 236);
-            this.gridLinesComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gridLinesComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.gridLinesComboBox.Name = "gridLinesComboBox";
             this.gridLinesComboBox.Size = new System.Drawing.Size(92, 21);
             this.gridLinesComboBox.TabIndex = 11;
@@ -249,13 +253,33 @@
             // 
             this.clearGraphButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.clearGraphButton.Location = new System.Drawing.Point(47, 341);
-            this.clearGraphButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clearGraphButton.Margin = new System.Windows.Forms.Padding(2);
             this.clearGraphButton.Name = "clearGraphButton";
             this.clearGraphButton.Size = new System.Drawing.Size(56, 19);
             this.clearGraphButton.TabIndex = 12;
             this.clearGraphButton.Text = "Clear";
             this.clearGraphButton.UseVisualStyleBackColor = true;
             this.clearGraphButton.Click += new System.EventHandler(this.clearGraphButton_click);
+            // 
+            // label2
+            // 
+            this.label2.AccessibleName = "";
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(51, 266);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Y-Value:";
+            // 
+            // yvalue_label
+            // 
+            this.yvalue_label.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.yvalue_label.AutoSize = true;
+            this.yvalue_label.Location = new System.Drawing.Point(75, 292);
+            this.yvalue_label.Name = "yvalue_label";
+            this.yvalue_label.Size = new System.Drawing.Size(0, 13);
+            this.yvalue_label.TabIndex = 14;
             // 
             // menuStrip1
             // 
@@ -323,6 +347,7 @@
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(586, 425);
             this.display.TabIndex = 4;
+            this.display.MouseMove += new System.Windows.Forms.MouseEventHandler(this.display_MouseMove);
             // 
             // GUI
             // 
@@ -334,7 +359,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GUI";
             this.Text = "Graph Tool";
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -370,6 +395,8 @@
         private System.Windows.Forms.ComboBox gridLinesComboBox;
         private System.Windows.Forms.Panel display;
         private System.Windows.Forms.Button clearGraphButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label yvalue_label;
     }
 }
 

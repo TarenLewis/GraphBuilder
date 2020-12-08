@@ -1,40 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GraphBuilder.Graphing;
+using System.Windows.Forms;
+using GraphBuilder.Manager;
 
 namespace GraphBuilder.Observer
 {
     interface ObserverIF
     {
-        void notify(double x);
+        void notify(Panel p);
+        double getX();
     }
 
     class Notifier
     {
-        private List<ObserverIF> observers;
+        private int[] x_values;
+        private ObserverIF[] observer_points;
+        private double location_x_max, location_x_min;
 
-        public void notify(double x)
+        public Notifier(Panel p)
         {
-            throw new NotImplementedException();
+
+            location_x_max = p.Width * GraphManager.E_PADDING;
+            location_x_min = p.Width * GraphManager.W_PADDING;
+
+            x_values = new int[p.Width];
+            observer_points = new ObserverIF[p.Width];   
+        }
+
+        public void notify(Panel p, int x)
+        {
+            if(observer_points[x] != null)
+                observer_points[x].notify(p);
         }
 
         public void addObserver(ObserverIF oif)
         {
-            observers.Add(oif);
+            int index = (int) ((oif.getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min);
+            observer_points[index] = oif;
         }
 
         public void removeObserver(ObserverIF oif)
         {
-            if (observers.Contains(oif))
-            {
-                observers.Remove(oif);
-            }
+            int index = (int)((oif.getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min);
+            observer_points[index] = null;
         }
     }
 
-    class GraphObserver
-    {
-    }
 }

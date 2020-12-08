@@ -136,9 +136,20 @@ namespace GraphBuilder.Graphing
             return temporaryPoint;
         }
 
-        public void notify(double x)
+        public void notify(Panel p)
         {
-            throw new System.NotImplementedException();
+            double y1 = p.Height * GraphManager.S_PADDING;
+            double y2 = p.Height * GraphManager.N_PADDING;
+
+            double location_x_min = p.Width * GraphManager.W_PADDING;
+            double location_x_max = p.Width * GraphManager.E_PADDING;
+
+            double x1 = (x / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min;
+            double x2 = x1;
+
+            Graphics g = p.CreateGraphics();
+            Pen pen = new Pen(Brushes.Red, 0.75F);
+            g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
         }
     }
 

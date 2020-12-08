@@ -11,16 +11,25 @@ namespace GraphBuilder
     public partial class GUI : Form
     {
 
-        GraphManager graphmanager = new GraphManager();
+        GraphManager graphmanager;
+        Bitmap temp_foreground;
 
         public GUI()
         {
             InitializeComponent();
+
+
+            graphmanager = new GraphManager(display);
+
+            // Set default selections
             graphTypeComboBox.SelectedIndex = 0;
             xaxisComboBox.SelectedIndex = 0;
             yaxisComboBox.SelectedIndex = 0;
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
+
+            temp_foreground = new Bitmap(display.Width, display.Height);
+
         }
 
         // OK button 
@@ -90,7 +99,6 @@ namespace GraphBuilder
         {
 
             // Save As
-            Stream myStream;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             string directory = Directory.GetCurrentDirectory();
@@ -175,6 +183,15 @@ namespace GraphBuilder
                 graphmanager.removeGridLines();
         }
 
+        private void display_MouseMove(object sender, MouseEventArgs e)
+        {
+           
+            ///display.DrawToBitmap(temp_foreground, new Rectangle(0, 0, display.Width, display.Height));
+            graphmanager.handleMouseMove(display, e.X);
 
+            //Graphics g = display.CreateGraphics();
+            //g.DrawImage(temp_foreground, 0, 0);
+            
+        }
     }
 }
