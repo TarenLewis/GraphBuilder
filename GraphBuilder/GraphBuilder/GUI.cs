@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using GraphBuilder.Manager;
 using GraphBuilder.Graphing;
 using System.Drawing;
-
+using System.Threading.Tasks;
 
 namespace GraphBuilder
 {
@@ -24,10 +24,18 @@ namespace GraphBuilder
         }
 
         // OK button 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
+
+            // Check to make sure graph future is ready
+            while (!graphmanager.checkIfFutureReady())
+            {
+                Console.WriteLine("Future is not ready...");
+                await Task.Delay(25);
+            }
+
             graphmanager.graph.draw(display);
         }
 

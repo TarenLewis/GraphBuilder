@@ -33,6 +33,7 @@ namespace GraphBuilder.Manager
         
         // Used for rendering the graph with Future pattern
         private GraphRenderRequester graphRenderRequester;
+        private RenderFuture future;
 
         // Observer Pattern
         private Notifier notifier;
@@ -79,60 +80,75 @@ namespace GraphBuilder.Manager
 
         }
 
+        public bool checkIfFutureReady()
+        {
+            return future.checkIfReady();
+        }
+
         public void addLine()
         {
             data.addComponent(line);
             graph.addComponent(data);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void removeLine()
         {
             data.removeComponent(line);
             graph.addComponent(data);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void removeXAxis()
         {
             graph.removeComponent(haxis);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void addXAxis()
         {
             graph.addComponent(haxis);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void addYAxis()
         {
             graph.addComponent(vaxis);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void removeYAxis()
         {
             graph.removeComponent(vaxis);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void removeGridLines()
         {
             vaxis.removeComponent(vgridlines);
             haxis.removeComponent(hgridlines);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void addGridLines()
         {
             vaxis.addComponent(vgridlines);
             haxis.addComponent(hgridlines);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void addTickMarks()
         {
             vaxis.addComponent(vtickmarks);
             haxis.addComponent(htickmarks);
+            this.future = graphRenderRequester.getFuture(graph);
         }
 
         public void removeTickMarks()
         {
             vaxis.removeComponent(vtickmarks);
             haxis.removeComponent(htickmarks);
+            this.future = graphRenderRequester.getFuture(graph);
         }
         
 
