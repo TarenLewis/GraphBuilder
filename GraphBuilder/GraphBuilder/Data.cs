@@ -40,6 +40,12 @@ namespace GraphBuilder.Graphing
             components.Remove(dif);
         }
 
+        // remove all subcompoents
+        public void clear()
+        {
+            components.Clear();
+        }
+
         public object Clone()
         {
             // Memberwise clone value types
@@ -95,6 +101,12 @@ namespace GraphBuilder.Graphing
             return this.y;
         }
 
+        // Getter for radius 
+        public double getR()
+        {
+            return this.radius;
+        }
+
         public void draw(Panel p)
         {
             // Locations on the GUI
@@ -146,21 +158,38 @@ namespace GraphBuilder.Graphing
     {
         public PointWithCoordinates(Point p)
         {
-            point = p;
+            point = new Point(p.getX(), p.getY(), p.getR());
         }
 
         public override void draw(Panel p)
         {
-            string x = this.point.getX().ToString();
-            string y = this.point.getY().ToString();
+            string x_str = this.point.getX().ToString("#.##");
+            string y_str = this.point.getY().ToString("#.##");
 
-            string coord = "(" + x + ", " + y + ")";
+            string coord = "(" + x_str + ", " + y_str + ")";
 
             this.point.draw(p);
+
+            // Locations on the GUI
+            double location_x_min = p.Width * GraphManager.W_PADDING;
+            double location_x_max = p.Width * GraphManager.E_PADDING;
+            double location_y_min = p.Height * GraphManager.S_PADDING;
+            double location_y_max = p.Height * GraphManager.N_PADDING;
+
+            // Calculate GUI location using ratios
+            double location_x = (point.getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min;
+            double location_y = (point.getY() / (GraphManager.Y_MAX - GraphManager.Y_MIN)) * (location_y_max - location_y_min) + location_y_min;
+
+            Graphics g = p.CreateGraphics();
+            Font f = new Font("Times New Roman", 9);
+            g.DrawString(coord, f, Brushes.Black, (float) location_x, (float) location_y);
+
+            /*
             Label label = new Label();
             label.Text = coord;
             label.Location = new System.Drawing.Point((int)point.getX(), (int)point.getY());
             p.Controls.Add(label);
+            */
         }
     }
 
@@ -181,6 +210,12 @@ namespace GraphBuilder.Graphing
         public void setColor(Color c)
         {
             this.c = c;
+        }
+
+        // Clear all points
+        public void clear()
+        {
+            points.Clear();
         }
 
 
