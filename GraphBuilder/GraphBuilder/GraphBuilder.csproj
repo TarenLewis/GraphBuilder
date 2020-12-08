@@ -50,6 +50,7 @@
     <Compile Include="Axis.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="GraphManager.cs" />
+    <Compile Include="GraphObserver.cs" />
     <Compile Include="GraphRender.cs" />
     <Compile Include="GUI.cs">
       <SubType>Form</SubType>

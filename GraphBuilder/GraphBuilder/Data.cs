@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using GraphBuilder.Manager;
+using GraphBuilder.Observer;
 
 namespace GraphBuilder.Graphing
 {
@@ -39,6 +40,12 @@ namespace GraphBuilder.Graphing
             components.Remove(dif);
         }
 
+        // remove all subcompoents
+        public void clear()
+        {
+            components.Clear();
+        }
+
         public object Clone()
         {
             // Memberwise clone value types
@@ -61,7 +68,7 @@ namespace GraphBuilder.Graphing
     }
 
     // Class to represent a point on the graph
-    public class Point : DataIF
+    public class Point : DataIF, ObserverIF
     {
         // x and y data point, not GUI location
         private double radius, x, y;
@@ -94,6 +101,12 @@ namespace GraphBuilder.Graphing
             return this.y;
         }
 
+        // Getter for radius 
+        public double getR()
+        {
+            return this.radius;
+        }
+
         public void draw(Panel p)
         {
             // Locations on the GUI
@@ -122,7 +135,64 @@ namespace GraphBuilder.Graphing
 
             return temporaryPoint;
         }
+
+        public void notify(double x)
+        {
+            throw new System.NotImplementedException();
+        }
     }
+
+    public abstract class AbstractPointWrapper : DataIF
+    {
+        internal Point point;
+
+        public object Clone()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public abstract void draw(Panel p);
+    }
+
+    public class PointWithCoordinates : AbstractPointWrapper
+    {
+        public PointWithCoordinates(Point p)
+        {
+            point = new Point(p.getX(), p.getY(), p.getR());
+        }
+
+        public override void draw(Panel p)
+        {
+            string x_str = this.point.getX().ToString("#.##");
+            string y_str = this.point.getY().ToString("#.##");
+
+            string coord = "(" + x_str + ", " + y_str + ")";
+
+            this.point.draw(p);
+
+            // Locations on the GUI
+            double location_x_min = p.Width * GraphManager.W_PADDING;
+            double location_x_max = p.Width * GraphManager.E_PADDING;
+            double location_y_min = p.Height * GraphManager.S_PADDING;
+            double location_y_max = p.Height * GraphManager.N_PADDING;
+
+            // Calculate GUI location using ratios
+            double location_x = (point.getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min;
+            double location_y = (point.getY() / (GraphManager.Y_MAX - GraphManager.Y_MIN)) * (location_y_max - location_y_min) + location_y_min;
+
+            Graphics g = p.CreateGraphics();
+            Font f = new Font("Times New Roman", 9);
+            g.DrawString(coord, f, Brushes.Black, (float) location_x, (float) location_y);
+
+            /*
+            Label label = new Label();
+            label.Text = coord;
+            label.Location = new System.Drawing.Point((int)point.getX(), (int)point.getY());
+            p.Controls.Add(label);
+            */
+        }
+    }
+
 
     // Class to add lines to the graph 
     public class Line : DataIF
@@ -140,6 +210,12 @@ namespace GraphBuilder.Graphing
         public void setColor(Color c)
         {
             this.c = c;
+        }
+
+        // Clear all points
+        public void clear()
+        {
+            points.Clear();
         }
 
 

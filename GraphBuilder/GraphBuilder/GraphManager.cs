@@ -1,7 +1,8 @@
 
 ﻿using GraphBuilder.Graphing;
+using GraphBuilder.Observer;
+using GraphBuilder.Rendering;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml;
@@ -28,8 +29,13 @@ namespace GraphBuilder.Manager
         public static double S_PADDING = 0.85;
         public static double W_PADDING = 0.15;
 
-
         public Graph graph = new Graph();
+        
+        // Used for rendering the graph with Future pattern
+        private GraphRenderRequester graphRenderRequester;
+
+        // Observer Pattern
+        private Notifier notifier;
 
 
 
@@ -46,7 +52,30 @@ namespace GraphBuilder.Manager
         private Line line = new Line();
 
         public GraphManager()
-        {      
+        {
+            Point p1 = new Point(25, 25, 1.5);
+            Point p2 = new Point(50, 50, 1.5);
+            Point p3 = new Point(75, 75, 1.5);
+
+            p1.setColor(System.Drawing.Color.Red);
+            p2.setColor(System.Drawing.Color.Red);
+            p3.setColor(System.Drawing.Color.Red);
+
+            PointWithCoordinates wrapper1 = new PointWithCoordinates(p1);
+            PointWithCoordinates wrapper2 = new PointWithCoordinates(p2);
+            PointWithCoordinates wrapper3 = new PointWithCoordinates(p3);
+
+            data.addComponent(p1);
+            data.addComponent(p2);
+            data.addComponent(p3);
+
+            line.addPoint(p1);
+            line.addPoint(p2);
+            line.addPoint(p3);
+
+            data.addComponent(wrapper1);
+            data.addComponent(wrapper2);
+            data.addComponent(wrapper3);
 
         }
 
@@ -109,6 +138,10 @@ namespace GraphBuilder.Manager
 
         public void openData(string path)
         {
+
+            data.clear();
+            line.clear();
+
             using (StreamReader reader = new StreamReader(path))
             {
                 string title = reader.ReadLine();
@@ -124,6 +157,9 @@ namespace GraphBuilder.Manager
                 string[] values;
                 double x, y, x_max = 0, y_max = 0;
                 Point p;
+                // MODIFIED TO TEST wrapper
+                AbstractPointWrapper pointWrapper;
+                // END MODIFICATION
 
                 while (!reader.EndOfStream)
                 {
@@ -137,14 +173,26 @@ namespace GraphBuilder.Manager
                         y_max = y;
 
                     p = new Point(x, y, 1.5);
+                    // MODIFIED FOR TESTING
+                    pointWrapper = new PointWithCoordinates(p);
+
+                    //What I want to do:
+                    //data.addComponent(pointWrapper);
+                    //line.addPoint(pointWrapper);
                     data.addComponent(p);
                     line.addPoint(p);
+                    //data.addComponent(p);
+                    //line.addPoint(p);
+
+                    // END MODIFICATION
 
                     GraphManager.Y_MAX = y_max;
                     GraphManager.X_MAX = x_max;
                 }
 
             }
+
+            data.addComponent(line);
         }
 
         public void saveGraphObject<Graph>(Graph serializableObject, string fileName)
