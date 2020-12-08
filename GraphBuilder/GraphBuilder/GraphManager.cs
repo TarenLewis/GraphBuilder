@@ -131,6 +131,9 @@ namespace GraphBuilder.Manager
                 string[] values;
                 double x, y, x_max = 0, y_max = 0;
                 Point p;
+                // MODIFIED TO TEST wrapper
+                AbstractPointWrapper pointWrapper;
+                // END MODIFICATION
 
                 while (!reader.EndOfStream)
                 {
@@ -144,8 +147,19 @@ namespace GraphBuilder.Manager
                         y_max = y;
 
                     p = new Point(x, y, 1.5);
+                    // MODIFIED FOR TESTING
+                    pointWrapper = new PointWithCoordinates(p);
+
+                    //What I want to do:
+                    //data.addComponent(pointWrapper);
+                    //line.addPoint(pointWrapper);
+
                     data.addComponent(p);
                     line.addPoint(p);
+                    //data.addComponent(p);
+                    //line.addPoint(p);
+
+                    // END MODIFICATION
 
                     GraphManager.Y_MAX = y_max;
                     GraphManager.X_MAX = x_max;

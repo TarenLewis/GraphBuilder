@@ -130,6 +130,41 @@ namespace GraphBuilder.Graphing
         }
     }
 
+    public abstract class AbstractPointWrapper : DataIF
+    {
+        internal Point point;
+
+        public object Clone()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public abstract void draw(Panel p);
+    }
+
+    public class PointWithCoordinates : AbstractPointWrapper
+    {
+        public PointWithCoordinates(Point p)
+        {
+            point = p;
+        }
+
+        public override void draw(Panel p)
+        {
+            string x = this.point.getX().ToString();
+            string y = this.point.getY().ToString();
+
+            string coord = "(" + x + ", " + y + ")";
+
+            this.point.draw(p);
+            Label label = new Label();
+            label.Text = coord;
+            label.Location = new System.Drawing.Point((int)point.getX(), (int)point.getY());
+            p.Controls.Add(label);
+        }
+    }
+
+
     // Class to add lines to the graph 
     public class Line : DataIF
     {
