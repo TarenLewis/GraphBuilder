@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using GraphBuilder.Manager;
 using GraphBuilder.Graphing;
 using System.Drawing;
-
+using GraphBuilder.Rendering;
 
 namespace GraphBuilder
 {
@@ -14,6 +14,8 @@ namespace GraphBuilder
         GraphManager graphmanager;
         Bitmap background_image;
         bool background_flag = false;
+        RenderFuture future;
+        GraphRenderRequester reqeuster;
 
         public GUI()
         {
@@ -22,15 +24,22 @@ namespace GraphBuilder
 
             graphmanager = new GraphManager(display);
 
+            Graphics g = display.CreateGraphics();
+            g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
+
+            background_image = new Bitmap(display.Width, display.Height, g);
+            g = Graphics.FromImage(background_image);
+            g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
+
+
+            reqeuster = new GraphRenderRequester(background_image);
+
             // Set default selections
             graphTypeComboBox.SelectedIndex = 0;
             xaxisComboBox.SelectedIndex = 0;
             yaxisComboBox.SelectedIndex = 0;
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
-
-            background_image = new Bitmap(display.Width, display.Height, display.CreateGraphics());
-
         }
 
         // OK button 
@@ -38,8 +47,12 @@ namespace GraphBuilder
         {
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
-            graphmanager.graph.draw(background_image);
+            //graphmanager.graph.draw(background_image);
 
+            if(!future.checkGraphStatus())
+                future.waitForResult();
+
+            background_image = future.getResult();
             g.DrawImage(background_image, 0, 0);
         }
 
@@ -149,6 +162,8 @@ namespace GraphBuilder
                 graphmanager.addLine();
             else
                 graphmanager.removeLine();
+
+            future = reqeuster.getFuture(graphmanager.graph);
         }
 
         // X-axis 'selected index change'
@@ -158,6 +173,8 @@ namespace GraphBuilder
                 graphmanager.addXAxis();
             else
                 graphmanager.removeXAxis();
+
+            future = reqeuster.getFuture(graphmanager.graph);
         }
 
         // Y-axis 'selected index change'
@@ -167,6 +184,8 @@ namespace GraphBuilder
                 graphmanager.addYAxis();
             else
                 graphmanager.removeYAxis();
+
+            future = reqeuster.getFuture(graphmanager.graph);
         }
 
         // Ticks 'selected index change'
@@ -177,6 +196,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeTickMarks();
 
+            future = reqeuster.getFuture(graphmanager.graph);
         }
 
         // Grid Lines 'selected index change'
@@ -186,12 +206,15 @@ namespace GraphBuilder
                 graphmanager.addGridLines();
             else
                 graphmanager.removeGridLines();
+
+            future = reqeuster.getFuture(graphmanager.graph);
         }
 
         private void display_MouseMove(object sender, MouseEventArgs e)
         {
             Graphics g = display.CreateGraphics();
-            //g.DrawImage(background_image, 0, 0);
+            
+            g.DrawImage(background_image, 0, 0);
             graphmanager.handleMouseMove(display, e.X);
         }
 

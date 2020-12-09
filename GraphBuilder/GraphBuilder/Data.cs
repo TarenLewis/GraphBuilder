@@ -198,7 +198,8 @@ namespace GraphBuilder.Graphing
             double location_y = (point.getY() / (GraphManager.Y_MAX - GraphManager.Y_MIN)) * (location_y_max - location_y_min) + location_y_min;
 
             Graphics g = Graphics.FromImage(bmp);
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+
             Font f = new Font("Times New Roman", 9);
             g.DrawString(coord, f, Brushes.Black, (float) location_x, (float) location_y);
 

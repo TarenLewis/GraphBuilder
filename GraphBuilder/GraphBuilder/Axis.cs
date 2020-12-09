@@ -62,8 +62,7 @@ namespace GraphBuilder.Graphing
 
             Graphics g = Graphics.FromImage(bmp);
             g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
             // Draw all subcomponents 
             foreach (YAxisIF yaif in components)
@@ -151,8 +150,7 @@ namespace GraphBuilder.Graphing
 
             Graphics g = Graphics.FromImage(bmp);
             g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
             // Draw Title
             if (title_on)
@@ -303,7 +301,7 @@ namespace GraphBuilder.Graphing
 
             Pen pen = new Pen(c, thickness);
             Graphics g = Graphics.FromImage(bmp);
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
             double y_incr = (y_max - y_min) / GraphManager.Y_AXIS_INCREMENT;
             string str;
@@ -367,7 +365,7 @@ namespace GraphBuilder.Graphing
 
                 double newx = x1 + dx * i;
                 g.DrawLine(pen, (float) newx, (float) y1, (float) newx, (float) y2);
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
                 str = ((x_min + x_incr * i)).ToString("#.###");
 

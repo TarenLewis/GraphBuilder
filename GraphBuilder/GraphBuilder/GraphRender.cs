@@ -1,54 +1,78 @@
 ﻿using GraphBuilder.Graphing;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+
+
 
 namespace GraphBuilder.Rendering
 {
-    // This class is for handling the separate thread that creates the graph
-    class RenderFuture
+    // This class handles the request for a RenderFuture object
+    public class GraphRenderRequester
+    {
+        private Bitmap bmp;
+
+        public GraphRenderRequester(Bitmap bmp)
+        {
+            this.bmp = bmp;
+        }
+
+        public RenderFuture getFuture(Graph graph)
+        {
+            return new RenderFuture(bmp, graph);
+        }
+    }
+
+
+    // This class handles rendering the Graph object onto a Bitmap Image asyncnroulsy 
+    public class RenderFuture
     {
         private Graph graph;
         private Bitmap result;
-        private bool ready;
+        private bool ready = false;
+        private readonly object lock_object = new object();
+        private Thread runner;
 
-        RenderFuture(Graph g)
+        public RenderFuture(Bitmap bmp, Graph graph)
         {
-            this.graph = g;
+            this.graph = graph;
+            this.result = (Bitmap) bmp.Clone();
+            runner = new Thread(new ThreadStart(run));
+            runner.Start();
         }
- 
+
 
         public bool checkGraphStatus()
         {
-            throw new NotImplementedException();
+            return ready;
         }
 
         public void waitForResult()
         {
+            if (ready)
+                return;
+            else
+                lock (lock_object) { }
 
+            return;
         }
 
         public Bitmap getResult()
         {
             return result;
         }
-    }
 
-    class GraphRenderRequester
-    {
-        private Graph graph;
-
-        GraphRenderRequester(Graph g)
+        private void run()
         {
-            this.graph = g;
+            lock (lock_object)
+            {
+                graph.draw(result);
+            }
         }
 
-        RenderFuture getFuture()
-        {
-            throw new NotImplementedException();
-        }
+
     }
+
+
+
+
 }

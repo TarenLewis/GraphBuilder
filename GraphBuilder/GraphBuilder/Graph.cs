@@ -71,6 +71,8 @@ namespace GraphBuilder.Graphing
             if (title_on)
             {
                 Graphics g = Graphics.FromImage(bmp);
+                g.FillRectangle(Brushes.White, 0, 0, bmp.Width, bmp.Height);
+
                 Font f = new Font("Times new roman", 16);
 
                 // Determine size of title and center it in top
@@ -78,7 +80,7 @@ namespace GraphBuilder.Graphing
                 double title_x_location = bmp.Width / 2 - title_dimensions.Width / 2;
                 double title_y_location = bmp.Height * GraphManager.N_PADDING / 2 - title_dimensions.Height / 2;
 
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
                 g.DrawString(title, f, Brushes.Black, (float) title_x_location, (float) title_y_location );
 
                 g.Dispose();
