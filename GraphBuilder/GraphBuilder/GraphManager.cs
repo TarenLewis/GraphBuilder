@@ -1,7 +1,6 @@
 
 ﻿using GraphBuilder.Graphing;
 using GraphBuilder.Observer;
-using GraphBuilder.Rendering;
 using System;
 using System.Globalization;
 using System.IO;
@@ -32,12 +31,11 @@ namespace GraphBuilder.Manager
 
         public Graph graph = new Graph();
         
-        // Used for rendering the graph with Future pattern
-        private GraphRenderRequester graphRenderRequester;
 
         // Observer Pattern
         private Notifier notifier;
 
+        // Varibables to build composite object
         private XAxis haxis = new XAxis();
         private XAxisGridLines hgridlines = new XAxisGridLines();
         private XAxisTickMarks htickmarks = new XAxisTickMarks();
@@ -50,8 +48,12 @@ namespace GraphBuilder.Manager
         private Data data = new Data();
         private Line line = new Line();
 
+        // Default constructor build basic default graph
         public GraphManager(Panel p)
         {
+
+            // Build basic graph as default can edit this code to test
+            // Don't need to load data set just hit button to display graph
             Point p1 = new Point(25, 25, 1.5);
             Point p2 = new Point(50, 50, 1.5);
             Point p3 = new Point(75, 75, 1.5);
@@ -82,6 +84,11 @@ namespace GraphBuilder.Manager
             notifier.addObserver(p3);
         }
 
+
+
+
+
+        // Handlers to add/remove components from graph
         public void addLine()
         {
             data.addComponent(line);
@@ -144,11 +151,16 @@ namespace GraphBuilder.Manager
         }
         
 
+
+
+
+        // Tool menu handlers
         public void openData(string path)
         {
 
             data.clear();
             line.clear();
+            notifier.clearObservers();
 
             using (StreamReader reader = new StreamReader(path))
             {
@@ -161,13 +173,10 @@ namespace GraphBuilder.Manager
                 haxis.setTitle(x_axis_title);
                 vaxis.setTitle(y_axis_title);
                 graph.setTitle(title);
-
+                
                 string[] values;
                 double x, y, x_max = 0, y_max = 0;
                 Point p;
-                // MODIFIED TO TEST wrapper
-                AbstractPointWrapper pointWrapper;
-                // END MODIFICATION
 
                 while (!reader.EndOfStream)
                 {
@@ -184,11 +193,13 @@ namespace GraphBuilder.Manager
                     
                     data.addComponent(p);
                     line.addPoint(p);
-                   
-
-                    GraphManager.Y_MAX = y_max;
-                    GraphManager.X_MAX = x_max;
+                    
                 }
+
+                GraphManager.Y_MAX = y_max;
+                GraphManager.X_MAX = x_max;
+                
+
 
             }
 

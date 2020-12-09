@@ -42,6 +42,11 @@ namespace GraphBuilder.Observer
             int index = (int)((oif.getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min);
             observer_points[index] = null;
         }
+
+        public void clearObservers()
+        {
+            observer_points = new ObserverIF[observer_points.Length];
+        }
     }
 
 }

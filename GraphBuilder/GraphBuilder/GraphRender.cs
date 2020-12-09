@@ -66,6 +66,7 @@ namespace GraphBuilder.Rendering
             lock (lock_object)
             {
                 graph.draw(result);
+                ready = true;
             }
         }
 

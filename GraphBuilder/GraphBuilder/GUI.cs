@@ -13,7 +13,6 @@ namespace GraphBuilder
 
         GraphManager graphmanager;
         Bitmap background_image;
-        bool background_flag = false;
         RenderFuture future;
         GraphRenderRequester reqeuster;
 
@@ -31,6 +30,7 @@ namespace GraphBuilder
             g = Graphics.FromImage(background_image);
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
 
+            g.Dispose();
 
             reqeuster = new GraphRenderRequester(background_image);
 
@@ -47,7 +47,6 @@ namespace GraphBuilder
         {
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
-            //graphmanager.graph.draw(background_image);
 
             if(!future.checkGraphStatus())
                 future.waitForResult();
@@ -106,6 +105,14 @@ namespace GraphBuilder
 
 
             }
+
+            graphmanager.graph.draw(background_image);
+            Graphics g = display.CreateGraphics();
+            g.DrawImage(background_image, 0, 0);
+
+            future = reqeuster.getFuture(graphmanager.graph);
+            g.Dispose();
+            
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
