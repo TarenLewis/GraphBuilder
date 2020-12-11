@@ -14,7 +14,7 @@ namespace GraphBuilder
         GraphManager graphmanager;
         Bitmap background_image;
         RenderFuture future;
-        GraphRenderRequester reqeuster;
+        GraphRenderRequester requester;
 
         // Constructor 
         public GUI()
@@ -27,17 +27,20 @@ namespace GraphBuilder
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
 
             background_image = new Bitmap(display.Width, display.Height, g);
+
             graphmanager = new GraphManager(background_image);
-            reqeuster = new GraphRenderRequester(background_image);
+            requester = new GraphRenderRequester(background_image);
             g.Dispose();
             
-
             // Set default selections
             graphTypeComboBox.SelectedIndex = 0;
             xaxisComboBox.SelectedIndex = 0;
             yaxisComboBox.SelectedIndex = 0;
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
+
+            // Clone original graph
+            graphmanager.graphCopy = (Graph)graphmanager.graph.Clone();
 
             graphmanager.graph.draw(background_image);
             g = display.CreateGraphics();
@@ -59,8 +62,7 @@ namespace GraphBuilder
             g.DrawImage(background_image, 0, 0);
         }
 
-
-        // Open Graph
+        // Open Graph Object as bin
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog od = new OpenFileDialog())
@@ -70,22 +72,21 @@ namespace GraphBuilder
                 directory += "\\SavedGraphs";
                 od.InitialDirectory = directory;
 
-                od.DefaultExt = "xml";
-                od.Filter = "XML Files|*.xml";
+                od.DefaultExt = "bin";
+                od.Filter = "BIN Files (*.bin)|*.bin";
 
                 if (od.ShowDialog() == DialogResult.OK)
                 {
                     clearGraph();
                     string path = od.FileName;
-                    graphmanager.graph = new Graph();
-                    graphmanager.graph = graphmanager.openGraphObject<Graph>(path);
+                    Graph tempGraph = graphmanager.openObjectAsBin(path);
+
+                    graphmanager.graph = (Graph)tempGraph.Clone();
                     
                     graphmanager.graph.draw(background_image);
                     Graphics g = display.CreateGraphics();
                     g.DrawImage(background_image, 0, 0);
                 }
-
-
             }
         }
 
@@ -107,14 +108,13 @@ namespace GraphBuilder
                     graphmanager.openData(path);
                 }
 
-
             }
 
             graphmanager.graph.draw(background_image);
             Graphics g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
             g.Dispose();
 
             // Set default selections
@@ -122,6 +122,8 @@ namespace GraphBuilder
 
         }
 
+        // Saving as bin
+        // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/serialization/walkthrough-persisting-an-object-in-visual-studio
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -133,8 +135,8 @@ namespace GraphBuilder
             directory += "\\SavedGraphs";
             saveFileDialog.InitialDirectory = directory;
 
-            saveFileDialog.DefaultExt = "xml";
-            saveFileDialog.Filter = "XML Files|*.xml";
+            saveFileDialog.DefaultExt = "bin";
+            saveFileDialog.Filter = "BIN Files (*.bin)|*.bin";
 
             saveFileDialog.FilterIndex = 2;
             saveFileDialog.RestoreDirectory = true;
@@ -143,24 +145,16 @@ namespace GraphBuilder
             {
                 string path = saveFileDialog.FileName;
 
-                // Set this graph's file name.
-                graphmanager.graph.setFileName(saveFileDialog.FileName);
-                graphmanager.saveGraphObject(graphmanager.graph, path);
+                Console.WriteLine("Saving graph as bin... " + graphmanager.graph.getTitle());
+                graphmanager.saveObjectAsBin(graphmanager.graph, path);
             }
-
-
-        }
-
-            // Clear Graph
-        private void clearGraphButton_click(object sender, EventArgs e)
-        {
-            clearGraph();
         }
 
         private void clearGraph()
         {
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
+            
         }
 
 
@@ -172,7 +166,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeLine();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         // X-axis 'selected index change'
@@ -183,7 +177,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeXAxis();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         // Y-axis 'selected index change'
@@ -194,7 +188,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeYAxis();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         // Ticks 'selected index change'
@@ -205,7 +199,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeTickMarks();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         // Grid Lines 'selected index change'
@@ -216,7 +210,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeGridLines();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         private void display_MouseMove(object sender, MouseEventArgs e)
@@ -237,30 +231,35 @@ namespace GraphBuilder
             GraphManager.Y_MAX = 100;
             GraphManager.Y_MIN = 0;
 
+            /*
             background_image = new Bitmap(display.Width, display.Height);
             graphmanager = new GraphManager(background_image);
-            reqeuster = new GraphRenderRequester(background_image);
+            requester = new GraphRenderRequester(background_image
+            */
 
-            
-            // Set default selections
+            // Reset default selections
             graphTypeComboBox.SelectedIndex = 0;
             xaxisComboBox.SelectedIndex = 0;
             yaxisComboBox.SelectedIndex = 0;
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
 
+            // Stuff is unnecessary since the graph is cloned
+            /*
             graphmanager.addLine();
             graphmanager.addGridLines();
             graphmanager.addTickMarks();
             graphmanager.addXAxis();
             graphmanager.addYAxis();
+            */ 
 
-            graphmanager.graph.draw(background_image);
+            graphmanager.graphCopy.draw(background_image);
             Graphics g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
             g.Dispose();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graphCopy);
         }
+
     }
 }

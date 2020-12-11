@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -31,7 +32,7 @@ namespace GraphBuilder.Manager
         public static double W_PADDING = 0.15;
 
         public Graph graph = new Graph();
-        
+        public Graph graphCopy = new Graph();
 
         // Observer Pattern
         private Notifier notifier;
@@ -157,7 +158,6 @@ namespace GraphBuilder.Manager
         // Tool menu handlers
         public void openData(string path)
         {
-
             data.clear();
             line.clear();
             notifier.clearObservers();
@@ -211,23 +211,33 @@ namespace GraphBuilder.Manager
             data.addComponent(line);
         }
 
-        public void saveGraphObject<Graph>(Graph serializableObject, string fileName)
+        public void saveGraphObject<Graph>(Graph graphObject, string fileName)
         {
             Console.WriteLine("Inside saveGraphObject");
-            if (serializableObject == null) {
+            if (graphObject == null) {
                 Console.WriteLine("Object is null inside saveGraphObject function");
                 return; }
 
             try
             {
+                Console.WriteLine("Saving graph inside saveGraphObject try statement");
                 XmlDocument xmlDocument = new XmlDocument();
-                XmlSerializer serializer = new XmlSerializer(serializableObject.GetType());
+                XmlSerializer serializer = new XmlSerializer(graphObject.GetType());
+
+                Console.WriteLine("Serializing to console");
+                serializer.Serialize(Console.Out, graphObject);
+                Console.WriteLine();
+                Console.ReadLine();
+
                 using (MemoryStream stream = new MemoryStream())
                 {
-                    serializer.Serialize(stream, serializableObject);
+                    serializer.Serialize(stream, graphObject);
                     stream.Position = 0;
                     xmlDocument.Load(stream);
+                    Console.WriteLine("xmlDocument.save doing");
                     xmlDocument.Save(fileName);
+                    // Dispose necessary?
+                    stream.Dispose();
                 }
             }
             catch (Exception ex)
@@ -236,8 +246,33 @@ namespace GraphBuilder.Manager
             }
         }
 
+        public void saveObjectAsBin(Graph graph, string path) {
+
+            Stream SaveFileStream = File.Create(path);
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(SaveFileStream, graph);
+            SaveFileStream.Close();
+        }
+
+        public Graph openObjectAsBin(string filename)
+        {
+            Graph graph2 = new Graph();
+            if (File.Exists(filename))
+            {
+                Console.WriteLine("Reading saved file");
+                Stream openFileStream = File.OpenRead(filename);
+                BinaryFormatter deserializer = new BinaryFormatter();
+                graph2 = (Graph)deserializer.Deserialize(openFileStream);
+                openFileStream.Close();
+               
+            }
+            return graph2;
+        }
+
+
         public Graph openGraphObject<Graph>(string fileName)
         {
+            Console.WriteLine("Inside open graph object");
             if (string.IsNullOrEmpty(fileName)) { return default(Graph); }
 
             Graph objectOut = default(Graph);
