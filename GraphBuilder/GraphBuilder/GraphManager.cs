@@ -26,8 +26,8 @@ namespace GraphBuilder.Manager
         // Controls the spacing between the edge of the panel and the graph
         public static double N_PADDING = 0.10;
         public static double E_PADDING = 0.95;
-        public static double S_PADDING = 0.85;
-        public static double W_PADDING = 0.15;
+        public static double S_PADDING = 0.90;
+        public static double W_PADDING = 0.10;
 
         public Graph graph = new Graph();
         
