@@ -1,6 +1,4 @@
-﻿using System;
-using GraphBuilder.Graphing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using GraphBuilder.Manager;
 
 namespace GraphBuilder.Observer
@@ -16,18 +14,18 @@ namespace GraphBuilder.Observer
         private ObserverIF[] observer_points;
         private double location_x_max, location_x_min;
 
-        public Notifier(Panel p)
+        public Notifier(System.Drawing.Bitmap bmp)
         {
 
-            location_x_max = p.Width * GraphManager.E_PADDING;
-            location_x_min = p.Width * GraphManager.W_PADDING;
+            location_x_max = bmp.Width * GraphManager.E_PADDING;
+            location_x_min = bmp.Width * GraphManager.W_PADDING;
 
-            observer_points = new ObserverIF[p.Width];   
+            observer_points = new ObserverIF[bmp.Width];   
         }
 
         public void notify(Panel p, int x)
         {
-            if(observer_points[x] != null)
+            if(x < observer_points.Length && observer_points[x] != null)
                 observer_points[x].notify(p);
         }
 
