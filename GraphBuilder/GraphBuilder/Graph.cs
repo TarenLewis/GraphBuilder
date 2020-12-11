@@ -5,11 +5,6 @@ using GraphBuilder.Manager;
 
 namespace GraphBuilder.Graphing
 {
-    public interface Cloneable
-    {
-    }
-
-
 
     // GraphComponentIF to handle composite graph object
     public interface GraphComponentIF : ICloneable
@@ -40,12 +35,6 @@ namespace GraphBuilder.Graphing
         {
             components.Remove(c);
         }
-
-        public List<GraphComponentIF> getComponentList()
-        {
-            return components;
-        }
-
         public void setFileName(string name)
         {
             this.fileName = name;
