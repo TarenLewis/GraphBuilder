@@ -32,13 +32,17 @@ namespace GraphBuilder.Observer
         public void addObserver(ObserverIF oif)
         {
             int index = (int) ((oif.getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min);
-            observer_points[index] = oif;
+
+            if(index < observer_points.Length)
+                observer_points[index] = oif;
         }
 
         public void removeObserver(ObserverIF oif)
         {
             int index = (int)((oif.getX() / (GraphManager.X_MAX - GraphManager.X_MIN)) * (location_x_max - location_x_min) + location_x_min);
-            observer_points[index] = null;
+
+            if(index < observer_points.Length)
+                observer_points[index] = null;
         }
 
         public void clearObservers()

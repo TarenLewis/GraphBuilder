@@ -2,6 +2,7 @@
 ﻿using GraphBuilder.Graphing;
 using GraphBuilder.Observer;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
@@ -26,7 +27,7 @@ namespace GraphBuilder.Manager
         // Controls the spacing between the edge of the panel and the graph
         public static double N_PADDING = 0.10;
         public static double E_PADDING = 0.95;
-        public static double S_PADDING = 0.90;
+        public static double S_PADDING = 0.85;
         public static double W_PADDING = 0.15;
 
         public Graph graph = new Graph();
@@ -54,7 +55,7 @@ namespace GraphBuilder.Manager
 
             // Build basic graph as default can edit this code to test
             // Don't need to load data set just hit button to display graph
-            Point p1 = new Point(25, 25, 1.5);
+            Point p1 = new Point(10, 25, 1.5);
             Point p2 = new Point(50, 50, 1.5);
             Point p3 = new Point(75, 75, 1.5);
 
@@ -177,6 +178,7 @@ namespace GraphBuilder.Manager
                 double x, y, x_max = 0, y_max = 0;
                 Point p;
 
+                List<Point> points = new List<Point>();
                 while (!reader.EndOfStream)
                 {
                     values = reader.ReadLine().Split(',');
@@ -192,11 +194,15 @@ namespace GraphBuilder.Manager
                     
                     data.addComponent(p);
                     line.addPoint(p);
+                    points.Add(p);
                     
                 }
 
                 GraphManager.Y_MAX = y_max;
                 GraphManager.X_MAX = x_max;
+
+                foreach (Point pt in points)
+                    notifier.addObserver(pt);
                 
 
 

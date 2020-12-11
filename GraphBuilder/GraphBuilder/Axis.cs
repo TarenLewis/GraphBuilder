@@ -78,7 +78,7 @@ namespace GraphBuilder.Graphing
                 // Determine size of title and center it in top
                 SizeF title_dimensions = g.MeasureString(title, f);
                 SizeF data_label_dimensions = g.MeasureString(((int)GraphManager.Y_MAX).ToString(), f2);
-                double title_x_location = bmp.Width * GraphManager.W_PADDING - data_label_dimensions.Width - title_dimensions.Height*2;
+                double title_x_location = (bmp.Width * GraphManager.W_PADDING - data_label_dimensions.Width - title_dimensions.Height) /2;
                 double title_y_location = bmp.Height/2 + title_dimensions.Width/2;
 
                 g.TranslateTransform((float) title_x_location, (float) title_y_location);
@@ -164,7 +164,7 @@ namespace GraphBuilder.Graphing
                 SizeF title_dimensions = g.MeasureString(title, f);
                 SizeF data_label_dimensions = g.MeasureString(GraphManager.X_MAX.ToString("#.###"), f2);
                 double title_x_location = bmp.Width / 2 - title_dimensions.Width / 2;
-                double title_y_location = bmp.Height * GraphManager.S_PADDING + data_label_dimensions.Width * Math.Sin(45F) + 5;
+                double title_y_location = bmp.Height * GraphManager.S_PADDING + data_label_dimensions.Width * Math.Sin(45F) + 15;
 
 
                 g.DrawString(title, f, Brushes.Black, (float) title_x_location, (float) title_y_location);
@@ -317,7 +317,17 @@ namespace GraphBuilder.Graphing
                 double newy = y2 - dy * i;
                 g.DrawLine(pen, (float) x1, (float) newy, (float) x2, (float) newy);
 
-                str = ((int) (y_min + y_incr * i)).ToString();
+                double value = (y_min + y_incr * i);
+
+                if(((int) value).ToString().Length > 3)
+                {
+                   str = ((int) value).ToString(); 
+                }
+                else
+                {
+                    str = value.ToString("#.##");
+                }
+                
                 g.DrawString(str, f, Brushes.Black, (float) x1 - 35, (float) newy - 10);
 
             }

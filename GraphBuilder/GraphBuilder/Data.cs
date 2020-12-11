@@ -154,6 +154,12 @@ namespace GraphBuilder.Graphing
             Pen pen = new Pen(Brushes.Red, 0.75F);
             g.DrawLine(pen, (float) x1, (float) y1, (float) x2, (float) y2);
 
+            double y_value = this.getY();
+            Font f = new Font("Times New Roman", 9);
+            SizeF txt_dimensions = g.MeasureString(y_value.ToString(), f);
+
+            g.DrawString(y_value.ToString(), f, Brushes.Red, (float) x2, (float) (y2 - txt_dimensions.Height));
+
             g.Dispose();
             pen.Dispose();
         }
