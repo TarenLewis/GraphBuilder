@@ -107,7 +107,6 @@ namespace GraphBuilder
                     graphmanager.openData(path);
                 }
 
-
             }
 
             graphmanager.graph.draw(background_image);
@@ -122,6 +121,8 @@ namespace GraphBuilder
 
         }
 
+        // Saving as bin
+        // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/serialization/walkthrough-persisting-an-object-in-visual-studio
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -143,12 +144,7 @@ namespace GraphBuilder
             {
                 string path = saveFileDialog.FileName;
 
-                // Set this graph's file name.
-                //graphmanager.graph.setFileName(saveFileDialog.FileName);
-
-                // Save the graph to this location
                 Console.WriteLine("Saving graph as bin... " + graphmanager.graph.getTitle());
-
                 graphmanager.saveObjectAsBin(graphmanager.graph, path);
             }
         }
