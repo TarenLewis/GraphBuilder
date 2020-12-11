@@ -149,12 +149,6 @@ namespace GraphBuilder
             }
         }
 
-            // Clear Graph
-        private void clearGraphButton_click(object sender, EventArgs e)
-        {
-            clearGraph();
-        }
-
         private void clearGraph()
         {
             Graphics g = display.CreateGraphics();

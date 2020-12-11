@@ -41,7 +41,6 @@
             this.tickMarkComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.gridLinesComboBox = new System.Windows.Forms.ComboBox();
-            this.clearGraphButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.yvalue_label = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -73,7 +72,6 @@
             this.tableLayoutPanel1.Controls.Add(this.tickMarkComboBox, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.gridLinesComboBox, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.clearGraphButton, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 10);
             this.tableLayoutPanel1.Controls.Add(this.yvalue_label, 0, 11);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
@@ -118,7 +116,7 @@
             this.graphTypeComboBox.Items.AddRange(new object[] {
             "Line Chart",
             "Scatterplot"});
-            this.graphTypeComboBox.Location = new System.Drawing.Point(14, 35);
+            this.graphTypeComboBox.Location = new System.Drawing.Point(14, 36);
             this.graphTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.graphTypeComboBox.Name = "graphTypeComboBox";
             this.graphTypeComboBox.Size = new System.Drawing.Size(121, 24);
@@ -166,7 +164,7 @@
             this.xaxisComboBox.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.xaxisComboBox.Location = new System.Drawing.Point(14, 99);
+            this.xaxisComboBox.Location = new System.Drawing.Point(14, 100);
             this.xaxisComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.xaxisComboBox.Name = "xaxisComboBox";
             this.xaxisComboBox.Size = new System.Drawing.Size(121, 24);
@@ -191,7 +189,7 @@
             this.yaxisComboBox.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.yaxisComboBox.Location = new System.Drawing.Point(14, 163);
+            this.yaxisComboBox.Location = new System.Drawing.Point(14, 164);
             this.yaxisComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.yaxisComboBox.Name = "yaxisComboBox";
             this.yaxisComboBox.Size = new System.Drawing.Size(121, 24);
@@ -216,7 +214,7 @@
             this.tickMarkComboBox.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.tickMarkComboBox.Location = new System.Drawing.Point(14, 227);
+            this.tickMarkComboBox.Location = new System.Drawing.Point(14, 228);
             this.tickMarkComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.tickMarkComboBox.Name = "tickMarkComboBox";
             this.tickMarkComboBox.Size = new System.Drawing.Size(121, 24);
@@ -241,24 +239,12 @@
             this.gridLinesComboBox.Items.AddRange(new object[] {
             "True",
             "False"});
-            this.gridLinesComboBox.Location = new System.Drawing.Point(14, 291);
+            this.gridLinesComboBox.Location = new System.Drawing.Point(14, 292);
             this.gridLinesComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.gridLinesComboBox.Name = "gridLinesComboBox";
             this.gridLinesComboBox.Size = new System.Drawing.Size(121, 24);
             this.gridLinesComboBox.TabIndex = 11;
             this.gridLinesComboBox.SelectedIndexChanged += new System.EventHandler(this.gridLinesComboBox_SelectedIndexChanged);
-            // 
-            // clearGraphButton
-            // 
-            this.clearGraphButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.clearGraphButton.Location = new System.Drawing.Point(37, 420);
-            this.clearGraphButton.Margin = new System.Windows.Forms.Padding(2);
-            this.clearGraphButton.Name = "clearGraphButton";
-            this.clearGraphButton.Size = new System.Drawing.Size(75, 23);
-            this.clearGraphButton.TabIndex = 12;
-            this.clearGraphButton.Text = "Clear";
-            this.clearGraphButton.UseVisualStyleBackColor = true;
-            this.clearGraphButton.Click += new System.EventHandler(this.clearGraphButton_click);
             // 
             // label2
             // 
@@ -306,28 +292,28 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.openToolStripMenuItem.Text = "Open Graph";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // loadDatasetToolStripMenuItem
             // 
             this.loadDatasetToolStripMenuItem.Name = "loadDatasetToolStripMenuItem";
-            this.loadDatasetToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.loadDatasetToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.loadDatasetToolStripMenuItem.Text = "Load Dataset";
             this.loadDatasetToolStripMenuItem.Click += new System.EventHandler(this.loadDatasetToolStripMenuItem_Click);
             // 
@@ -387,7 +373,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox gridLinesComboBox;
         private System.Windows.Forms.Panel display;
-        private System.Windows.Forms.Button clearGraphButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label yvalue_label;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
