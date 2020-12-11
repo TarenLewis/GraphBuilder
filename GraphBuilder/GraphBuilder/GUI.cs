@@ -43,6 +43,7 @@ namespace GraphBuilder
             g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
             g.Dispose();
+            
         }
 
         // OK button 
