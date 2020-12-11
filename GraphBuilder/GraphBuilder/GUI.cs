@@ -14,7 +14,7 @@ namespace GraphBuilder
         GraphManager graphmanager;
         Bitmap background_image;
         RenderFuture future;
-        GraphRenderRequester reqeuster;
+        GraphRenderRequester requester;
 
         public GUI()
         {
@@ -32,7 +32,7 @@ namespace GraphBuilder
 
             g.Dispose();
 
-            reqeuster = new GraphRenderRequester(background_image);
+            requester = new GraphRenderRequester(background_image);
 
             // Set default selections
             graphTypeComboBox.SelectedIndex = 0;
@@ -55,8 +55,7 @@ namespace GraphBuilder
             g.DrawImage(background_image, 0, 0);
         }
 
-
-        // Open Graph
+        // Open Graph Object as bin
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog od = new OpenFileDialog())
@@ -66,22 +65,25 @@ namespace GraphBuilder
                 directory += "\\SavedGraphs";
                 od.InitialDirectory = directory;
 
-                od.DefaultExt = "xml";
-                od.Filter = "XML Files|*.xml";
+                // Removed defaults for now
+                //od.DefaultExt = "xml";
+                //od.Filter = "XML Files|*.xml";
 
                 if (od.ShowDialog() == DialogResult.OK)
                 {
                     clearGraph();
                     string path = od.FileName;
-                    graphmanager.graph = new Graph();
-                    graphmanager.graph = graphmanager.openGraphObject<Graph>(path);
+
+                    // This line is pointless
+                    //Graph tempGraph = new Graph();
+                    Graph tempGraph = graphmanager.openObjectAsBin(path);
+
+                    graphmanager.graph = (Graph)tempGraph.Clone();
                     
                     graphmanager.graph.draw(background_image);
                     Graphics g = display.CreateGraphics();
                     g.DrawImage(background_image, 0, 0);
                 }
-
-
             }
         }
 
@@ -110,7 +112,7 @@ namespace GraphBuilder
             Graphics g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
             g.Dispose();
             
         }
@@ -131,8 +133,8 @@ namespace GraphBuilder
             directory += "\\SavedGraphs";
             saveFileDialog.InitialDirectory = directory;
 
-            saveFileDialog.DefaultExt = "xml";
-            saveFileDialog.Filter = "XML Files|*.xml";
+            //saveFileDialog.DefaultExt = "xml";
+            //saveFileDialog.Filter = "XML Files|*.xml";
 
             saveFileDialog.FilterIndex = 2;
             saveFileDialog.RestoreDirectory = true;
@@ -142,8 +144,12 @@ namespace GraphBuilder
                 string path = saveFileDialog.FileName;
 
                 // Set this graph's file name.
-                graphmanager.graph.setFileName(saveFileDialog.FileName);
-                graphmanager.saveGraphObject(graphmanager.graph, path);
+                //graphmanager.graph.setFileName(saveFileDialog.FileName);
+
+                // Save the graph to this location
+                Console.WriteLine("Saving graph as bin... " + graphmanager.graph.getTitle());
+
+                graphmanager.saveObjectAsBin(graphmanager.graph, path);
             }
 
 
@@ -159,6 +165,7 @@ namespace GraphBuilder
         {
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
+            
         }
 
 
@@ -170,7 +177,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeLine();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         // X-axis 'selected index change'
@@ -181,7 +188,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeXAxis();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         // Y-axis 'selected index change'
@@ -192,7 +199,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeYAxis();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         // Ticks 'selected index change'
@@ -203,7 +210,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeTickMarks();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         // Grid Lines 'selected index change'
@@ -214,7 +221,7 @@ namespace GraphBuilder
             else
                 graphmanager.removeGridLines();
 
-            future = reqeuster.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graph);
         }
 
         private void display_MouseMove(object sender, MouseEventArgs e)
@@ -233,7 +240,7 @@ namespace GraphBuilder
 
         private void display_MouseEnter(object sender, EventArgs e)
         {
-            
         }
+
     }
 }

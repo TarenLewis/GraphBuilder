@@ -20,6 +20,7 @@ namespace GraphBuilder.Graphing
 
 
     // Controls the Line and title for Y - Axis
+    [Serializable()]
     public class YAxis : YAxisIF
     {
         private List<YAxisIF> components = new List<YAxisIF>();
@@ -109,6 +110,7 @@ namespace GraphBuilder.Graphing
     }
 
     // Controls line and title for X - Axis 
+    [Serializable()]
     public class XAxis : XAxisIF
     {
         private List<XAxisIF> components = new List<XAxisIF>();
@@ -195,6 +197,7 @@ namespace GraphBuilder.Graphing
     }
 
     // Class to control horizontal gridlines for the Y-axis
+    [Serializable()]
     public class YAxisGridLines : YAxisIF
     {
         private float thickness = 0.75F;
@@ -235,6 +238,7 @@ namespace GraphBuilder.Graphing
     }
 
     // Class to control vertical gridlines for the X-axis
+    [Serializable()]
     public class XAxisGridLines : XAxisIF
     {
         private float thickness = 0.75F;
@@ -275,7 +279,8 @@ namespace GraphBuilder.Graphing
 
 
     // Controls major tick marks for the Y-axis
-   public class YAxisTickMarks : YAxisIF
+    [Serializable()]
+    public class YAxisTickMarks : YAxisIF
     {
         private Color c = Color.Black;
         private float thickness = 1;
@@ -326,6 +331,7 @@ namespace GraphBuilder.Graphing
     }
 
     // Controls major tick marks for the X-axis
+    [Serializable()]
     public class XAxisTickMarks : XAxisIF
     {
         private Color c = Color.Black;

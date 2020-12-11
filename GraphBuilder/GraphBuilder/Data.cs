@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,11 +11,12 @@ namespace GraphBuilder.Graphing
     // Marker interface to control data composite object
     public interface DataIF : GraphComponentIF
     {
-
+        
     }
 
-    
+
     // Data composite class 
+    [Serializable()]
     public class Data : DataIF
     {
         private List<DataIF> components = new List<DataIF>();
@@ -68,6 +69,7 @@ namespace GraphBuilder.Graphing
     }
 
     // Class to represent a point on the graph
+    [Serializable()]
     public class Point : DataIF, ObserverIF
     {
         // x and y data point, not GUI location
@@ -159,18 +161,24 @@ namespace GraphBuilder.Graphing
         }
     }
 
+    [Serializable()]
     public abstract class AbstractPointWrapper : DataIF
     {
         internal Point point;
 
         public object Clone()
         {
-            throw new System.NotImplementedException();
+            // Shallow copy since Color is value type (struct), as well as the ints.
+            AbstractPointWrapper temporaryPoint = (AbstractPointWrapper)this.MemberwiseClone();
+
+            return temporaryPoint;
         }
+
 
         public abstract void draw(Bitmap bmp);
     }
 
+    [Serializable()]
     public class PointWithCoordinates : AbstractPointWrapper
     {
         public PointWithCoordinates(Point p)
@@ -210,6 +218,7 @@ namespace GraphBuilder.Graphing
 
 
     // Class to add lines to the graph 
+    [Serializable()]
     public class Line : DataIF
     {
         List<Point> points = new List<Point>();
@@ -272,8 +281,8 @@ namespace GraphBuilder.Graphing
 
         public object Clone()
         {
-            // Shallow copy Color c;
             Line temporaryLine = (Line)this.MemberwiseClone();
+            // includes shallow copy for Color c;
 
             // Create new object reference and set equal to this.points
             List<Point> tempPoints2 = new List<Point>();

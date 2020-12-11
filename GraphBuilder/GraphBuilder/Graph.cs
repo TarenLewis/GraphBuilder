@@ -9,10 +9,9 @@ namespace GraphBuilder.Graphing
 {
     public interface Cloneable
     {
-        Cloneable clone();
     }
 
-    
+
 
     // GraphComponentIF to handle composite graph object
     public interface GraphComponentIF : ICloneable
@@ -22,13 +21,14 @@ namespace GraphBuilder.Graphing
 
 
     // Parent composite object
+    [Serializable()]
     public class Graph : GraphComponentIF
     {
         private List<GraphComponentIF> components = new List<GraphComponentIF>();
         private string title = "Y vs X";
         public bool title_on = true;
 
-        private string fileName;
+        private string fileName = "";
 
 
         // Add component to subcomponents 
@@ -61,6 +61,11 @@ namespace GraphBuilder.Graphing
         public void setTitle(string title)
         {
             this.title = title;
+        }
+
+        public string getTitle()
+        {
+            return title;
         }
 
         // Draw all subcompoents onto graphic 
