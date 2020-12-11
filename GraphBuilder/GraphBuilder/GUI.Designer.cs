@@ -77,9 +77,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 10);
             this.tableLayoutPanel1.Controls.Add(this.yvalue_label, 0, 11);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(781, 28);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(862, 24);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(862, 28);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 16;
@@ -99,7 +97,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(150, 528);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(150, 524);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -108,7 +106,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 33);
+            this.label1.Size = new System.Drawing.Size(144, 32);
             this.label1.TabIndex = 0;
             this.label1.Text = "Graph Type";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -120,7 +118,7 @@
             this.graphTypeComboBox.Items.AddRange(new object[] {
             "Line Chart",
             "Scatterplot"});
-            this.graphTypeComboBox.Location = new System.Drawing.Point(29, 39);
+            this.graphTypeComboBox.Location = new System.Drawing.Point(14, 35);
             this.graphTypeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.graphTypeComboBox.Name = "graphTypeComboBox";
             this.graphTypeComboBox.Size = new System.Drawing.Size(121, 24);
@@ -131,7 +129,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 472);
+            this.label3.Location = new System.Drawing.Point(26, 455);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(98, 17);
@@ -141,7 +139,7 @@
             // okButton
             // 
             this.okButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.okButton.Location = new System.Drawing.Point(47, 502);
+            this.okButton.Location = new System.Drawing.Point(37, 490);
             this.okButton.Margin = new System.Windows.Forms.Padding(2);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
@@ -154,7 +152,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(57, 76);
+            this.label4.Location = new System.Drawing.Point(52, 71);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 17);
@@ -168,7 +166,7 @@
             this.xaxisComboBox.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.xaxisComboBox.Location = new System.Drawing.Point(29, 105);
+            this.xaxisComboBox.Location = new System.Drawing.Point(14, 99);
             this.xaxisComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.xaxisComboBox.Name = "xaxisComboBox";
             this.xaxisComboBox.Size = new System.Drawing.Size(121, 24);
@@ -179,7 +177,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(57, 142);
+            this.label5.Location = new System.Drawing.Point(52, 135);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 17);
@@ -193,7 +191,7 @@
             this.yaxisComboBox.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.yaxisComboBox.Location = new System.Drawing.Point(29, 171);
+            this.yaxisComboBox.Location = new System.Drawing.Point(14, 163);
             this.yaxisComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.yaxisComboBox.Name = "yaxisComboBox";
             this.yaxisComboBox.Size = new System.Drawing.Size(121, 24);
@@ -204,7 +202,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(58, 208);
+            this.label6.Location = new System.Drawing.Point(54, 199);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 17);
@@ -218,7 +216,7 @@
             this.tickMarkComboBox.Items.AddRange(new object[] {
             "Visible",
             "Invisible"});
-            this.tickMarkComboBox.Location = new System.Drawing.Point(29, 237);
+            this.tickMarkComboBox.Location = new System.Drawing.Point(14, 227);
             this.tickMarkComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.tickMarkComboBox.Name = "tickMarkComboBox";
             this.tickMarkComboBox.Size = new System.Drawing.Size(121, 24);
@@ -229,7 +227,7 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(48, 274);
+            this.label7.Location = new System.Drawing.Point(38, 263);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(73, 17);
@@ -243,7 +241,7 @@
             this.gridLinesComboBox.Items.AddRange(new object[] {
             "True",
             "False"});
-            this.gridLinesComboBox.Location = new System.Drawing.Point(29, 303);
+            this.gridLinesComboBox.Location = new System.Drawing.Point(14, 291);
             this.gridLinesComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.gridLinesComboBox.Name = "gridLinesComboBox";
             this.gridLinesComboBox.Size = new System.Drawing.Size(121, 24);
@@ -253,7 +251,7 @@
             // clearGraphButton
             // 
             this.clearGraphButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.clearGraphButton.Location = new System.Drawing.Point(47, 436);
+            this.clearGraphButton.Location = new System.Drawing.Point(37, 420);
             this.clearGraphButton.Margin = new System.Windows.Forms.Padding(2);
             this.clearGraphButton.Name = "clearGraphButton";
             this.clearGraphButton.Size = new System.Drawing.Size(75, 23);
@@ -267,7 +265,7 @@
             this.label2.AccessibleName = "";
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 340);
+            this.label2.Location = new System.Drawing.Point(44, 327);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 17);
             this.label2.TabIndex = 13;
@@ -277,7 +275,7 @@
             // 
             this.yvalue_label.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.yvalue_label.AutoSize = true;
-            this.yvalue_label.Location = new System.Drawing.Point(75, 373);
+            this.yvalue_label.Location = new System.Drawing.Point(75, 359);
             this.yvalue_label.Name = "yvalue_label";
             this.yvalue_label.Size = new System.Drawing.Size(0, 17);
             this.yvalue_label.TabIndex = 14;
@@ -289,10 +287,8 @@
             this.filesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1012, 24);
-
+            this.menuStrip1.Size = new System.Drawing.Size(1012, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -310,29 +306,28 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open Graph";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
-
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // loadDatasetToolStripMenuItem
             // 
             this.loadDatasetToolStripMenuItem.Name = "loadDatasetToolStripMenuItem";
-            this.loadDatasetToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.loadDatasetToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.loadDatasetToolStripMenuItem.Text = "Load Dataset";
             this.loadDatasetToolStripMenuItem.Click += new System.EventHandler(this.loadDatasetToolStripMenuItem_Click);
             // 
@@ -343,7 +338,7 @@
             this.display.Location = new System.Drawing.Point(0, 28);
             this.display.Margin = new System.Windows.Forms.Padding(4);
             this.display.Name = "display";
-            this.display.Size = new System.Drawing.Size(862, 528);
+            this.display.Size = new System.Drawing.Size(862, 524);
             this.display.TabIndex = 4;
             this.display.MouseMove += new System.Windows.Forms.MouseEventHandler(this.display_MouseMove);
             // 

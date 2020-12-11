@@ -39,6 +39,9 @@ namespace GraphBuilder
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
 
+            // Clone original graph
+            graphmanager.graphCopy = (Graph)graphmanager.graph.Clone();
+
             graphmanager.graph.draw(background_image);
             g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
@@ -68,17 +71,13 @@ namespace GraphBuilder
                 directory += "\\SavedGraphs";
                 od.InitialDirectory = directory;
 
-                // Removed defaults for now
-                //od.DefaultExt = "xml";
-                //od.Filter = "XML Files|*.xml";
+                od.DefaultExt = "bin";
+                od.Filter = "BIN Files (*.bin)|*.bin";
 
                 if (od.ShowDialog() == DialogResult.OK)
                 {
                     clearGraph();
                     string path = od.FileName;
-
-                    // This line is pointless
-                    //Graph tempGraph = new Graph();
                     Graph tempGraph = graphmanager.openObjectAsBin(path);
 
                     graphmanager.graph = (Graph)tempGraph.Clone();
@@ -134,8 +133,8 @@ namespace GraphBuilder
             directory += "\\SavedGraphs";
             saveFileDialog.InitialDirectory = directory;
 
-            //saveFileDialog.DefaultExt = "xml";
-            //saveFileDialog.Filter = "XML Files|*.xml";
+            saveFileDialog.DefaultExt = "bin";
+            saveFileDialog.Filter = "BIN Files (*.bin)|*.bin";
 
             saveFileDialog.FilterIndex = 2;
             saveFileDialog.RestoreDirectory = true;
@@ -241,30 +240,34 @@ namespace GraphBuilder
             GraphManager.Y_MAX = 100;
             GraphManager.Y_MIN = 0;
 
+            /*
             background_image = new Bitmap(display.Width, display.Height);
             graphmanager = new GraphManager(background_image);
-            requester = new GraphRenderRequester(background_image);
+            requester = new GraphRenderRequester(background_image
+            */
 
-            
-            // Set default selections
+            // Reset default selections
             graphTypeComboBox.SelectedIndex = 0;
             xaxisComboBox.SelectedIndex = 0;
             yaxisComboBox.SelectedIndex = 0;
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
 
+            // Stuff is unnecessary since the graph is cloned
+            /*
             graphmanager.addLine();
             graphmanager.addGridLines();
             graphmanager.addTickMarks();
             graphmanager.addXAxis();
             graphmanager.addYAxis();
+            */ 
 
-            graphmanager.graph.draw(background_image);
+            graphmanager.graphCopy.draw(background_image);
             Graphics g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
             g.Dispose();
 
-            future = requester.getFuture(graphmanager.graph);
+            future = requester.getFuture(graphmanager.graphCopy);
         }
 
     }
