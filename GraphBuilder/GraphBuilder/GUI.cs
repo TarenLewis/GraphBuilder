@@ -151,8 +151,6 @@ namespace GraphBuilder
 
                 graphmanager.saveObjectAsBin(graphmanager.graph, path);
             }
-
-
         }
 
             // Clear Graph
