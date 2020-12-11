@@ -72,12 +72,13 @@ namespace GraphBuilder.Graphing
             if (title_on)
             {
                 Font f = new Font("Times New Roman", 14);
+                Font f2 = new Font("Times New Roman", 9);
                 
 
                 // Determine size of title and center it in top
                 SizeF title_dimensions = g.MeasureString(title, f);
-                SizeF data_label_dimensions = g.MeasureString(GraphManager.Y_MAX.ToString(), f);
-                double title_x_location = bmp.Width * GraphManager.W_PADDING - data_label_dimensions.Width * 1.25 - title_dimensions.Height;
+                SizeF data_label_dimensions = g.MeasureString(((int)GraphManager.Y_MAX).ToString(), f2);
+                double title_x_location = bmp.Width * GraphManager.W_PADDING - data_label_dimensions.Width - title_dimensions.Height*2;
                 double title_y_location = bmp.Height/2 + title_dimensions.Width/2;
 
                 g.TranslateTransform((float) title_x_location, (float) title_y_location);
@@ -85,6 +86,7 @@ namespace GraphBuilder.Graphing
 
                 g.DrawString(title, f, Brushes.Black, 0, 0);
                 f.Dispose();
+                f2.Dispose();
             }
 
             g.Dispose();
@@ -156,16 +158,18 @@ namespace GraphBuilder.Graphing
             if (title_on)
             {
                 Font f = new Font("Times New Roman", 14);
+                Font f2 = new Font("Times New Roman", 9);
 
                 // Determine size of title and center it in top
                 SizeF title_dimensions = g.MeasureString(title, f);
-                SizeF data_label_dimensions = g.MeasureString(GraphManager.X_MAX.ToString(), f);
+                SizeF data_label_dimensions = g.MeasureString(GraphManager.X_MAX.ToString("#.###"), f2);
                 double title_x_location = bmp.Width / 2 - title_dimensions.Width / 2;
-                double title_y_location = bmp.Height * GraphManager.S_PADDING + data_label_dimensions.Width * Math.Sin(45F);
+                double title_y_location = bmp.Height * GraphManager.S_PADDING + data_label_dimensions.Width * Math.Sin(45F) + 5;
 
 
                 g.DrawString(title, f, Brushes.Black, (float) title_x_location, (float) title_y_location);
                 f.Dispose();
+                f2.Dispose();
             }
 
             // Draw all subcomponents 

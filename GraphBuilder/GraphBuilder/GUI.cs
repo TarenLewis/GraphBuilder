@@ -16,23 +16,21 @@ namespace GraphBuilder
         RenderFuture future;
         GraphRenderRequester reqeuster;
 
+        // Constructor 
         public GUI()
         {
+            // Build the GUI components
             InitializeComponent();
 
-
-            graphmanager = new GraphManager(display);
 
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
 
             background_image = new Bitmap(display.Width, display.Height, g);
-            g = Graphics.FromImage(background_image);
-            g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
-
-            g.Dispose();
-
+            graphmanager = new GraphManager(background_image);
             reqeuster = new GraphRenderRequester(background_image);
+            g.Dispose();
+            
 
             // Set default selections
             graphTypeComboBox.SelectedIndex = 0;
@@ -40,6 +38,11 @@ namespace GraphBuilder
             yaxisComboBox.SelectedIndex = 0;
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
+
+            graphmanager.graph.draw(background_image);
+            g = display.CreateGraphics();
+            g.DrawImage(background_image, 0, 0);
+            g.Dispose();
         }
 
         // OK button 
@@ -112,12 +115,10 @@ namespace GraphBuilder
 
             future = reqeuster.getFuture(graphmanager.graph);
             g.Dispose();
-            
-        }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Save current graph
+            // Set default selections
+            graphTypeComboBox.SelectedIndex = 0;
+
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -225,15 +226,40 @@ namespace GraphBuilder
             graphmanager.handleMouseMove(display, e.X);
         }
 
-        // Handle resize event
-        private void display_Resize(object sender, EventArgs e)
-        {
-            background_image = new Bitmap(display.Width, display.Height);
-        }
 
-        private void display_MouseEnter(object sender, EventArgs e)
+        // New Tool menu strip
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            GraphManager.X_MAX = 100;
+            GraphManager.X_MIN = 0;
+            GraphManager.Y_MAX = 100;
+            GraphManager.Y_MIN = 0;
+
+            background_image = new Bitmap(display.Width, display.Height);
+            graphmanager = new GraphManager(background_image);
+            reqeuster = new GraphRenderRequester(background_image);
+
             
+            // Set default selections
+            graphTypeComboBox.SelectedIndex = 0;
+            xaxisComboBox.SelectedIndex = 0;
+            yaxisComboBox.SelectedIndex = 0;
+            tickMarkComboBox.SelectedIndex = 0;
+            gridLinesComboBox.SelectedIndex = 0;
+
+            graphmanager.addLine();
+            graphmanager.addGridLines();
+            graphmanager.addTickMarks();
+            graphmanager.addXAxis();
+            graphmanager.addYAxis();
+
+            graphmanager.graph.draw(background_image);
+            Graphics g = display.CreateGraphics();
+            g.DrawImage(background_image, 0, 0);
+            g.Dispose();
+
+            future = reqeuster.getFuture(graphmanager.graph);
         }
     }
 }

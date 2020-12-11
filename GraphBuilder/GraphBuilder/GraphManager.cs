@@ -27,7 +27,7 @@ namespace GraphBuilder.Manager
         public static double N_PADDING = 0.10;
         public static double E_PADDING = 0.95;
         public static double S_PADDING = 0.90;
-        public static double W_PADDING = 0.10;
+        public static double W_PADDING = 0.15;
 
         public Graph graph = new Graph();
         
@@ -49,7 +49,7 @@ namespace GraphBuilder.Manager
         private Line line = new Line();
 
         // Default constructor build basic default graph
-        public GraphManager(Panel p)
+        public GraphManager(System.Drawing.Bitmap bmp)
         {
 
             // Build basic graph as default can edit this code to test
@@ -78,7 +78,7 @@ namespace GraphBuilder.Manager
             data.addComponent(wrapper2);
             data.addComponent(wrapper3);
 
-            notifier = new Notifier(p);
+            notifier = new Notifier(bmp);
             notifier.addObserver(p1);
             notifier.addObserver(p2);
             notifier.addObserver(p3);
@@ -149,7 +149,6 @@ namespace GraphBuilder.Manager
         {
             notifier.notify(p, x);
         }
-        
 
 
 
