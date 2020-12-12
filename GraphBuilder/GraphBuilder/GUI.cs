@@ -15,6 +15,7 @@ namespace GraphBuilder
         Bitmap background_image;
         RenderFuture future;
         GraphRenderRequester requester;
+        bool view_only_flag = false;
 
         // Constructor 
         public GUI()
@@ -46,6 +47,8 @@ namespace GraphBuilder
             g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
             g.Dispose();
+
+            
             
         }
 
@@ -82,11 +85,22 @@ namespace GraphBuilder
                     Graph tempGraph = graphmanager.openObjectAsBin(path);
 
                     graphmanager.graph = (Graph)tempGraph.Clone();
-                    
+
+                   
+                    graphmanager.resetLimits();
+                    graphmanager.resetNotifier();
                     graphmanager.graph.draw(background_image);
+
+                    
+
                     Graphics g = display.CreateGraphics();
                     g.DrawImage(background_image, 0, 0);
+
+                    future = requester.getFuture(graphmanager.graph);
+                    disableComboBoxes();
                 }
+
+          
             }
         }
 
@@ -120,13 +134,15 @@ namespace GraphBuilder
             // Set default selections
             graphTypeComboBox.SelectedIndex = 0;
 
+            if (view_only_flag)
+                enableComboBoxes();
         }
 
         // Saving as bin
         // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/serialization/walkthrough-persisting-an-object-in-visual-studio
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+           
             // Save As
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
@@ -225,17 +241,13 @@ namespace GraphBuilder
         // New Tool menu strip
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (view_only_flag)
+                enableComboBoxes();
 
             GraphManager.X_MAX = 100;
             GraphManager.X_MIN = 0;
             GraphManager.Y_MAX = 100;
             GraphManager.Y_MIN = 0;
-
-            /*
-            background_image = new Bitmap(display.Width, display.Height);
-            graphmanager = new GraphManager(background_image);
-            requester = new GraphRenderRequester(background_image
-            */
 
             // Reset default selections
             graphTypeComboBox.SelectedIndex = 0;
@@ -244,16 +256,9 @@ namespace GraphBuilder
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
 
-            // Stuff is unnecessary since the graph is cloned
-            /*
-            graphmanager.addLine();
-            graphmanager.addGridLines();
-            graphmanager.addTickMarks();
-            graphmanager.addXAxis();
-            graphmanager.addYAxis();
-            */ 
-
-            graphmanager.graphCopy.draw(background_image);
+            graphmanager.graph = (Graph) graphmanager.graphCopy.Clone();
+            graphmanager.graph.draw(background_image);
+            graphmanager.resetNotifier();
             Graphics g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
             g.Dispose();
@@ -261,5 +266,26 @@ namespace GraphBuilder
             future = requester.getFuture(graphmanager.graphCopy);
         }
 
+        private void disableComboBoxes()
+        {
+            view_only_flag = true;
+            graphTypeComboBox.Enabled = false;
+            xaxisComboBox.Enabled = false;
+            yaxisComboBox.Enabled = false;
+            tickMarkComboBox.Enabled = false;
+            gridLinesComboBox.Enabled = false;
+            tickMarkComboBox.Enabled = false;
+        }
+
+        private void enableComboBoxes()
+        {
+            graphTypeComboBox.Enabled = true;
+            xaxisComboBox.Enabled = true;
+            yaxisComboBox.Enabled = true;
+            tickMarkComboBox.Enabled = true;
+            gridLinesComboBox.Enabled = true;
+            tickMarkComboBox.Enabled = true;
+            view_only_flag = false;
+        }
     }
 }

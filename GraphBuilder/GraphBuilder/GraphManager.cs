@@ -152,7 +152,39 @@ namespace GraphBuilder.Manager
             notifier.notify(p, x);
         }
 
+        public void resetNotifier()
+        {
+            notifier.clearObservers();
 
+            foreach(DataIF dif in graph.getData().components)
+            {
+                if (typeof(Point).IsInstanceOfType(dif))
+                {
+                    notifier.addObserver((Point)dif);
+                }
+            }
+        }
+
+        public void resetLimits()
+        {
+            double max_x = 0;
+            double max_y = 0;
+            foreach(DataIF dif in graph.getData().components)
+            {
+                if (typeof(Point).IsInstanceOfType(dif))
+                {
+                    Point pt = (Point)dif;
+                    if (pt.getX() > max_x)
+                        max_x = pt.getX();
+                    if (pt.getY() > max_y)
+                        max_y = pt.getY();
+
+                }
+            }
+
+            GraphManager.X_MAX = max_x;
+            GraphManager.Y_MAX = max_y;
+        }
 
 
         // Tool menu handlers
@@ -209,41 +241,7 @@ namespace GraphBuilder.Manager
             }
 
             data.addComponent(line);
-        }
-
-        public void saveGraphObject<Graph>(Graph graphObject, string fileName)
-        {
-            Console.WriteLine("Inside saveGraphObject");
-            if (graphObject == null) {
-                Console.WriteLine("Object is null inside saveGraphObject function");
-                return; }
-
-            try
-            {
-                Console.WriteLine("Saving graph inside saveGraphObject try statement");
-                XmlDocument xmlDocument = new XmlDocument();
-                XmlSerializer serializer = new XmlSerializer(graphObject.GetType());
-
-                Console.WriteLine("Serializing to console");
-                serializer.Serialize(Console.Out, graphObject);
-                Console.WriteLine();
-                Console.ReadLine();
-
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    serializer.Serialize(stream, graphObject);
-                    stream.Position = 0;
-                    xmlDocument.Load(stream);
-                    Console.WriteLine("xmlDocument.save doing");
-                    xmlDocument.Save(fileName);
-                    // Dispose necessary?
-                    stream.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("\nThere was an isue with WRITING the object.\n{0}", ex.Message);
-            }
+            graph.addComponent(data);
         }
 
         public void saveObjectAsBin(Graph graph, string path) {
@@ -266,41 +264,11 @@ namespace GraphBuilder.Manager
                 openFileStream.Close();
                
             }
+            
+            
             return graph2;
         }
 
-
-        public Graph openGraphObject<Graph>(string fileName)
-        {
-            Console.WriteLine("Inside open graph object");
-            if (string.IsNullOrEmpty(fileName)) { return default(Graph); }
-
-            Graph objectOut = default(Graph);
-
-            try
-            {
-                XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load(fileName);
-                string xmlString = xmlDocument.OuterXml;
-
-                using (StringReader read = new StringReader(xmlString))
-                {
-                    Type outType = typeof(Graph);
-
-                    XmlSerializer serializer = new XmlSerializer(outType);
-                    using (XmlReader reader = new XmlTextReader(read))
-                    {
-                        objectOut = (Graph)serializer.Deserialize(reader);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("\nThere was an isue with READING the object.\n{0}", ex.Message);
-            }
-
-            return objectOut;
-        }
 
     }
 }

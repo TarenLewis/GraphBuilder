@@ -105,6 +105,18 @@ namespace GraphBuilder.Graphing
 
             return tempGraph;
         }
+
+
+        public Data getData()
+        {
+            foreach(GraphComponentIF gcif in components)
+            {
+                if (typeof(Data).IsInstanceOfType(gcif))
+                    return (Data)gcif;
+            }
+
+            return new Data();
+        }
     }
 
 

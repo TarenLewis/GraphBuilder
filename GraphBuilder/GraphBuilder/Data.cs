@@ -19,7 +19,7 @@ namespace GraphBuilder.Graphing
     [Serializable()]
     public class Data : DataIF
     {
-        private List<DataIF> components = new List<DataIF>();
+        internal List<DataIF> components = new List<DataIF>();
 
 
         // Draw all subcomponents
@@ -137,7 +137,7 @@ namespace GraphBuilder.Graphing
         {
             // Shallow copy since Color is value type (struct), as well as the ints.
             Point temporaryPoint = (Point)this.MemberwiseClone();
-
+           
             return temporaryPoint;
         }
 
