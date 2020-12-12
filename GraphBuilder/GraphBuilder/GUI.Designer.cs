@@ -41,7 +41,6 @@
             this.tickMarkComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.gridLinesComboBox = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.yvalue_label = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.filesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,7 +71,6 @@
             this.tableLayoutPanel1.Controls.Add(this.tickMarkComboBox, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.gridLinesComboBox, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 10);
             this.tableLayoutPanel1.Controls.Add(this.yvalue_label, 0, 11);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(956, 24);
@@ -247,18 +245,6 @@
             this.gridLinesComboBox.TabIndex = 11;
             this.gridLinesComboBox.SelectedIndexChanged += new System.EventHandler(this.gridLinesComboBox_SelectedIndexChanged);
             // 
-            // label2
-            // 
-            this.label2.AccessibleName = "";
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 350);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Y-Value:";
-            // 
             // yvalue_label
             // 
             this.yvalue_label.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -375,7 +361,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox gridLinesComboBox;
         private System.Windows.Forms.Panel display;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label yvalue_label;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }

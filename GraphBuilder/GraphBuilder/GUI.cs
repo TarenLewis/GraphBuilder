@@ -256,6 +256,7 @@ namespace GraphBuilder
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
 
+            
             graphmanager.graph = (Graph) graphmanager.graphCopy.Clone();
             graphmanager.graph.draw(background_image);
             graphmanager.resetNotifier();

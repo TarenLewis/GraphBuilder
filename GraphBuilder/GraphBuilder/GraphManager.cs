@@ -7,8 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace GraphBuilder.Manager
 {
@@ -38,12 +36,12 @@ namespace GraphBuilder.Manager
         private Notifier notifier;
 
         // Varibables to build composite object
-        private XAxis haxis = new XAxis();
+        private XAxis xaxis = new XAxis();
         private XAxisGridLines hgridlines = new XAxisGridLines();
         private XAxisTickMarks htickmarks = new XAxisTickMarks();
 
 
-        private YAxis vaxis = new YAxis();
+        private YAxis yaxis = new YAxis();
         private YAxisGridLines vgridlines = new YAxisGridLines();
         private YAxisTickMarks vtickmarks = new YAxisTickMarks();
 
@@ -105,46 +103,46 @@ namespace GraphBuilder.Manager
 
         public void removeXAxis()
         {
-            graph.removeComponent(haxis);
+            graph.removeComponent(xaxis);
         }
 
         public void addXAxis()
         {
-            graph.addComponent(haxis);
+            graph.addComponent(xaxis);
         }
 
         public void addYAxis()
         {
-            graph.addComponent(vaxis);
+            graph.addComponent(yaxis);
         }
 
         public void removeYAxis()
         {
-            graph.removeComponent(vaxis);
+            graph.removeComponent(yaxis);
         }
 
         public void removeGridLines()
         {
-            vaxis.removeComponent(vgridlines);
-            haxis.removeComponent(hgridlines);
+            yaxis.removeComponent(vgridlines);
+            xaxis.removeComponent(hgridlines);
         }
 
         public void addGridLines()
         {
-            vaxis.addComponent(vgridlines);
-            haxis.addComponent(hgridlines);
+            yaxis.addComponent(vgridlines);
+            xaxis.addComponent(hgridlines);
         }
 
         public void addTickMarks()
         {
-            vaxis.addComponent(vtickmarks);
-            haxis.addComponent(htickmarks);
+            yaxis.addComponent(vtickmarks);
+            xaxis.addComponent(htickmarks);
         }
 
         public void removeTickMarks()
         {
-            vaxis.removeComponent(vtickmarks);
-            haxis.removeComponent(htickmarks);
+            yaxis.removeComponent(vtickmarks);
+            xaxis.removeComponent(htickmarks);
         }
 
         public void handleMouseMove(Panel p, int x)
@@ -202,8 +200,8 @@ namespace GraphBuilder.Manager
                 string x_axis_title = axis_titles[0];
                 string y_axis_title = axis_titles[1];
 
-                haxis.setTitle(x_axis_title);
-                vaxis.setTitle(y_axis_title);
+                xaxis.setTitle(x_axis_title);
+                yaxis.setTitle(y_axis_title);
                 graph.setTitle(title);
                 
                 string[] values;

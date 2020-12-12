@@ -20,7 +20,6 @@ namespace GraphBuilder.Graphing
         private List<GraphComponentIF> components = new List<GraphComponentIF>();
         private string title = "Y vs X";
         public bool title_on = true;
-
         private string fileName = "";
 
 
