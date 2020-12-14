@@ -192,6 +192,9 @@ namespace GraphBuilder.Manager
             line.clear();
             notifier.clearObservers();
 
+            graph = new Graph();
+
+
             using (StreamReader reader = new StreamReader(path))
             {
                 string title = reader.ReadLine();
@@ -240,6 +243,9 @@ namespace GraphBuilder.Manager
 
             data.addComponent(line);
             graph.addComponent(data);
+            graph.addComponent(xaxis);
+            graph.addComponent(yaxis);
+            
         }
 
         public void saveObjectAsBin(Graph graph, string path) {

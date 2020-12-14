@@ -15,7 +15,7 @@ namespace GraphBuilder
         Bitmap background_image;
         RenderFuture future;
         GraphRenderRequester requester;
-        bool view_only_flag = false;
+        bool read_only_flag = false;
 
         // Constructor 
         public GUI()
@@ -26,7 +26,6 @@ namespace GraphBuilder
 
             Graphics g = display.CreateGraphics();
             g.FillRectangle(Brushes.White, 0, 0, display.Width, display.Height);
-
             background_image = new Bitmap(display.Width, display.Height, g);
 
             graphmanager = new GraphManager(background_image);
@@ -47,8 +46,6 @@ namespace GraphBuilder
             g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
             g.Dispose();
-
-            
             
         }
 
@@ -85,7 +82,7 @@ namespace GraphBuilder
                     Graph tempGraph = graphmanager.openObjectAsBin(path);
 
                     graphmanager.graph = (Graph)tempGraph.Clone();
-
+                    
                    
                     graphmanager.resetLimits();
                     graphmanager.resetNotifier();
@@ -97,16 +94,19 @@ namespace GraphBuilder
                     g.DrawImage(background_image, 0, 0);
 
                     future = requester.getFuture(graphmanager.graph);
-                    disableComboBoxes();
                 }
 
           
             }
+
+            disableComboBoxes();
         }
 
         // Load Dataset
         private void loadDatasetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+
             using (OpenFileDialog od = new OpenFileDialog())
             {
                 string directory = Directory.GetCurrentDirectory();
@@ -123,6 +123,15 @@ namespace GraphBuilder
                 }
 
             }
+                       
+            // Resert selections
+            enableComboBoxes();
+            graphTypeComboBox.SelectedIndex = 0;
+            xaxisComboBox.SelectedIndex = 0;
+            yaxisComboBox.SelectedIndex = 0;
+            tickMarkComboBox.SelectedIndex = 0;
+            gridLinesComboBox.SelectedIndex = 0;
+
 
             graphmanager.graph.draw(background_image);
             Graphics g = display.CreateGraphics();
@@ -134,8 +143,6 @@ namespace GraphBuilder
             // Set default selections
             graphTypeComboBox.SelectedIndex = 0;
 
-            if (view_only_flag)
-                enableComboBoxes();
         }
 
         // Saving as bin
@@ -241,9 +248,6 @@ namespace GraphBuilder
         // New Tool menu strip
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (view_only_flag)
-                enableComboBoxes();
-
             GraphManager.X_MAX = 100;
             GraphManager.X_MIN = 0;
             GraphManager.Y_MAX = 100;
@@ -256,37 +260,51 @@ namespace GraphBuilder
             tickMarkComboBox.SelectedIndex = 0;
             gridLinesComboBox.SelectedIndex = 0;
 
-            
-            graphmanager.graph = (Graph) graphmanager.graphCopy.Clone();
+            if(read_only_flag)
+                enableComboBoxes();
+
+            //graphmanager.graph = (Graph) graphmanager.graphCopy.Clone();
+            graphmanager = new GraphManager(background_image);
+            requester = new GraphRenderRequester(background_image);
+
+            graphmanager.addXAxis();
+            graphmanager.addYAxis();
+            graphmanager.addTickMarks();
+            graphmanager.addGridLines();
+            graphmanager.addLine();
+
             graphmanager.graph.draw(background_image);
             graphmanager.resetNotifier();
             Graphics g = display.CreateGraphics();
             g.DrawImage(background_image, 0, 0);
             g.Dispose();
 
-            future = requester.getFuture(graphmanager.graphCopy);
-        }
-
-        private void disableComboBoxes()
-        {
-            view_only_flag = true;
-            graphTypeComboBox.Enabled = false;
-            xaxisComboBox.Enabled = false;
-            yaxisComboBox.Enabled = false;
-            tickMarkComboBox.Enabled = false;
-            gridLinesComboBox.Enabled = false;
-            tickMarkComboBox.Enabled = false;
+            future = requester.getFuture(graphmanager.graph);
         }
 
         private void enableComboBoxes()
         {
+
+            read_only_flag = false;
+
             graphTypeComboBox.Enabled = true;
             xaxisComboBox.Enabled = true;
             yaxisComboBox.Enabled = true;
             tickMarkComboBox.Enabled = true;
             gridLinesComboBox.Enabled = true;
-            tickMarkComboBox.Enabled = true;
-            view_only_flag = false;
         }
+
+        private void disableComboBoxes()
+        {
+
+            read_only_flag = true;
+
+            graphTypeComboBox.Enabled = false;
+            xaxisComboBox.Enabled = false;
+            yaxisComboBox.Enabled = false;
+            tickMarkComboBox.Enabled = false;
+            gridLinesComboBox.Enabled = false;
+        }
+
     }
 }
